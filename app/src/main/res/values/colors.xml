@@ -9,6 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="verde_pelota">#86EF00</color>
     <color name="verde_fondo">#1B2910</color>
+    <color name="verde_fondo_cartas">#0F1809</color>
     <color name="azul">#3DA2FF</color>
     <color name="verde_bottom">#304C1B</color>
+    <color name="rojo">#B10000</color>
 </resources>
