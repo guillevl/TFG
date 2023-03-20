@@ -3,9 +3,14 @@ package com.example.tfg
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
+import com.example.tfg.Admin.CrearEventoFragment
+import com.example.tfg.Admin.ListaUsersFragment
+import com.example.tfg.Admin.MainAdminFragment
+import com.example.tfg.User.MainUsrFragment
+import com.example.tfg.User.MisEventosFragment
+import com.example.tfg.User.PerfilFragment
+import com.example.tfg.User.RankingFragment
 import com.example.tfg.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

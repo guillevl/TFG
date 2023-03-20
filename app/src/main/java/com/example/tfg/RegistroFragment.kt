@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.core.view.isVisible
+import com.example.tfg.User.MainUsrFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.regex.Pattern
 

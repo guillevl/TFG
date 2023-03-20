@@ -1,18 +1,20 @@
-package com.example.tfg
+package com.example.tfg.Admin
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.tfg.R
 
-class ListaUsersFragment : Fragment() {
+class DetalleEventoAdminFrgment : Fragment() {
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_lista_users, container, false)
+        return inflater.inflate(R.layout.fragment_detalle_evento_admin_frgment, container, false)
     }
 
 }

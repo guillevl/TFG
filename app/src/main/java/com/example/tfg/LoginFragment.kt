@@ -1,18 +1,16 @@
 package com.example.tfg
 
-import android.content.Context
 import android.os.Bundle
-import android.telecom.Call
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import com.example.tfg.Admin.MainAdminFragment
+import com.example.tfg.User.MainUsrFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class LoginFragment : Fragment() {

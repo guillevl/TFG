@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/verde_fondo"
-    tools:context=".RankingFragment">
+    tools:context=".User.RankingFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

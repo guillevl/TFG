@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginBottom="56dp"
     android:background="@color/verde_fondo"
-    tools:context=".PerfilFragment">
+    tools:context=".User.PerfilFragment">
 
     <ScrollView
         android:layout_width="wrap_content"
@@ -177,8 +177,8 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView6"
                 android:layout_width="320dp"
-                android:layout_height="80dp"
-                android:layout_marginTop="20dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="17dp"
                 android:backgroundTint="@color/verde_fondo_cartas"
                 app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -210,8 +210,8 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView7"
                 android:layout_width="320dp"
-                android:layout_height="80dp"
-                android:layout_marginTop="20dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="17dp"
                 android:backgroundTint="@color/verde_fondo_cartas"
                 app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
