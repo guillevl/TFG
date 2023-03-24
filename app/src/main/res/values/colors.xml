@@ -13,5 +13,7 @@
     <color name="azul">#3DA2FF</color>
     <color name="verde_bottom">#304C1B</color>
     <color name="rojo">#B10000</color>
+    <color name="rojo_carta">#FF0000</color>
+    <color name="verde_carta">#00FF04</color>
     <color name="gris">#F0F0F0</color>
 </resources>
