@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.tfg.Admin.ListaUsersAdapter
 import com.example.tfg.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -23,6 +26,10 @@ class DetalleEventoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.isVisible = false
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationViewAdmin)?.isVisible = false
+
+        var rvUserInfo = view.findViewById<RecyclerView>(R.id.rvDetalleEventos)
+        rvUserInfo.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        rvUserInfo.adapter = DetalleEventosAdapter {}
     }
     override fun onStop() {
         super.onStop()
