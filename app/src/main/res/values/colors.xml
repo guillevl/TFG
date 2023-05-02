@@ -17,4 +17,7 @@
     <color name="verde_carta">#00FF04</color>
     <color name="gris">#F0F0F0</color>
     <color name="griss">#E1ECD9</color>
+    <color name="transparente">#D39C9C9C</color>
+    <color name="transparente2">#D02C2C2C</color>
+    <color name="transparente3">#A17A7A7A</color>
 </resources>

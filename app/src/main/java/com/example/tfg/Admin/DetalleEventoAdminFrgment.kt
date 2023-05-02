@@ -6,9 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tfg.PantallaInicioFragment
 import com.example.tfg.R
 import com.example.tfg.User.DetalleEventosAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -33,24 +36,38 @@ class DetalleEventoAdminFrgment : Fragment() {
         builder.setItems(opciones) { dialog, which ->
             when (which) {
                 0 -> {
-                    // Acción para la opción 1
+                    Toast.makeText(context, "Ha recibido 40 puntos", Toast.LENGTH_SHORT).show()
                 }
                 1 -> {
-                    // Acción para la opción 2
+                    Toast.makeText(context, "Ha recibido 30 puntos", Toast.LENGTH_SHORT).show()
                 }
                 2 -> {
-                    // Acción para la opción 3
+                    Toast.makeText(context, "Ha recibido 20 puntos", Toast.LENGTH_SHORT).show()
                 }
                 3 -> {
-
+                    Toast.makeText(context, "Ha recibido 10 puntos", Toast.LENGTH_SHORT).show()
                 }
             }
         }
-
+        val builder2 = AlertDialog.Builder(context)
+        builder2.setTitle("Terminar evento")
+            .setMessage("¿Seguro que desea terminar el evento?")
+            .setPositiveButton("Sí") { dialog, which ->
+                // Acciones a realizar si el usuario presiona el botón "Sí"
+                activity?.supportFragmentManager?.beginTransaction()
+                    ?.replace(R.id.container, MainAdminFragment())?.commit()
+            }
+            .setNegativeButton("No") { dialog, which ->
+                // Acciones a realizar si el usuario presiona el botón "No"
+            }
+        val alerta = builder2.create()
         var rvUserInfo = view.findViewById<RecyclerView>(R.id.rvDetalleEventos)
         rvUserInfo.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         rvUserInfo.adapter = DetalleEventosAdapter {
             builder.show()
+        }
+        view?.findViewById<Button>(R.id.btnUnirme)?.setOnClickListener {
+            alerta.show()
         }
     }
     override fun onStop() {
