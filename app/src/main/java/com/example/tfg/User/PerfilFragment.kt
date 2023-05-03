@@ -3,17 +3,19 @@ package com.example.tfg.User
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
-import android.service.autofill.UserData
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import com.example.tfg.LoginFragment
 import com.example.tfg.PantallaInicioFragment
 import com.example.tfg.R
 import com.example.tfg.api.ApiRest
+import com.example.tfg.api.UserData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,7 +35,8 @@ class PerfilFragment : Fragment() {
         val sharedPreferencesGet =
             requireContext().getSharedPreferences("login", Context.MODE_PRIVATE)
         val getID = sharedPreferencesGet.getInt("userID", 0)
-        getUserById("1")
+        ApiRest.initService()
+        getUser(getID.toString())
         val builder = AlertDialog.Builder(context)
         builder.setTitle("Eliminar cuenta")
             .setMessage("¿Seguro que desea eliminar la cuenta?")
@@ -58,23 +61,33 @@ class PerfilFragment : Fragment() {
                 ?.replace(R.id.container, LoginFragment())?.commit()
         }
     }
-
-    private fun getUserById(id: String) {
+    private fun getUser(id: String) {
         val call = ApiRest.service.getUserById(id)
-        call.enqueue(object : Callback<UserData> {
+        call.enqueue(object: Callback<UserData> {
             override fun onResponse(call: Call<UserData>, response: Response<UserData>) {
-                // manejar la respuesta exitosa aquí
+                // maneja la respuesta exitosa aquí
                 val body = response.body()
                 if (response.isSuccessful && body != null) {
-                    // procesar la respuesta aquí
-                    Log.e("TAG", response.body().toString())
+                    view?.findViewById<TextView>(R.id.txtUsernamePerfil)?.text = "@"+body.username
+                    view?.findViewById<TextView>(R.id.txtNombreCompletoPerfil)?.text = body.name+ " " + body.apellido
+                    view?.findViewById<TextView>(R.id.txtPuntosPerfil)?.text = body.points.toString()+"pts"
+                    if (body.mano_dominante != null) {
+                        view?.findViewById<TextView>(R.id.txtManodominantePerfil)?.text =
+                            body.mano_dominante
+                    }else{
+                        view?.findViewById<TextView>(R.id.txtManodominantePerfil)?.text = "Sin indicar"
+                    }
+                    view?.findViewById<TextView>(R.id.txtFechaPerfil)?.text = body.fecha_nacimiento
+                    view?.findViewById<TextView>(R.id.txtCorreoPerfil)?.text = body.email
+                    Log.i("EditProfileFragment", body.toString())
+
                 } else {
-                    Log.e("TAG", response.errorBody()?.string() ?: "Error")
+                    Log.e("EditProfileFragment", response.errorBody()?.string() ?: "Error")
                 }
             }
 
             override fun onFailure(call: Call<UserData>, t: Throwable) {
-                Log.e("TAG", "Error: ${t.message}")
+                Log.e("EditProfileFragment", "Error: ${t.message}")
             }
         })
     }

@@ -72,7 +72,7 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/txtUsernamePerfil"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -84,14 +84,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
             <TextView
+                android:id="@+id/txtNombreCompletoPerfil"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:text="Guillermo Vallejo Lopez"
                 android:textColor="@color/white"
                 android:textSize="16dp"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
+                app:layout_constraintStart_toStartOf="@+id/txtUsernamePerfil"
+                app:layout_constraintTop_toBottomOf="@+id/txtUsernamePerfil" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView5"
@@ -134,6 +135,7 @@
                             android:src="@drawable/graph" />
 
                         <TextView
+                            android:id="@+id/txtPuntosPerfil"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
@@ -164,6 +166,7 @@
                             android:src="@drawable/tennis" />
 
                         <TextView
+                            android:id="@+id/txtManodominantePerfil"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
@@ -198,6 +201,7 @@
                         android:src="@drawable/baseline_email_24" />
 
                     <TextView
+                        android:id="@+id/txtCorreoPerfil"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="correousuario1@gmail.com"
@@ -230,6 +234,7 @@
                         android:src="@drawable/baseline_calendar_month_24" />
 
                     <TextView
+                        android:id="@+id/txtFechaPerfil"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="15 / 07 / 2002"

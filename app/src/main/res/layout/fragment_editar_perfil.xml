@@ -217,30 +217,38 @@
                     android:textColor="@color/white"
                     android:textSize="20dp" />
 
-                <com.google.android.material.textfield.TextInputLayout
+                <RadioGroup
+                    android:id="@+id/grupoChekeados"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColorHint="@color/black"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    app:boxCornerRadiusBottomEnd="16dp"
-                    app:boxCornerRadiusBottomStart="16dp"
-                    app:boxCornerRadiusTopEnd="16dp"
-                    app:boxCornerRadiusTopStart="16dp"
-                    app:boxStrokeWidth="0dp"
-                    app:boxStrokeWidthFocused="0dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etEditarManoDominante"
-                        android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:checkedButton="@id/Ambidiestro">
+                    <RadioButton
+                        android:id="@+id/Ambidiestro"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="Nueva mano dominante"
-                        android:layout_margin="10dp"
-                        android:outlineProvider="none"
-                        android:textColor="@color/black"
-                        android:textSize="18dp" />
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:text="Ambidiestro"
+                        android:textColor="@color/white"
+                        android:textSize="20dp" />
+                    <RadioButton
+                        android:id="@+id/ManoDerecha"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:text="Diestro"
+                        android:textColor="@color/white"
+                        android:textSize="20dp" />
 
+                    <RadioButton
+                        android:id="@+id/ManoIzquierda"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Zurdo"
+                        android:textColor="@color/white"
+                        android:textSize="20dp" />
+                </RadioGroup>
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnGuardarDatosUser"
                     android:layout_width="130dp"
