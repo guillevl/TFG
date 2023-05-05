@@ -17,7 +17,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/imgPoster"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:background="@drawable/imagen_perfil_fondo"
@@ -28,23 +28,23 @@
                 android:layout_width="440dp"
                 android:layout_height="150dp"
                 android:src="@color/transparente3"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView"
-                app:layout_constraintEnd_toEndOf="@+id/imageView"
-                app:layout_constraintStart_toStartOf="@+id/imageView"
+                app:layout_constraintBottom_toBottomOf="@+id/imgPoster"
+                app:layout_constraintEnd_toEndOf="@+id/imgPoster"
+                app:layout_constraintStart_toStartOf="@+id/imgPoster"
                 app:layout_constraintTop_toTopOf="parent"></ImageView>
 
-            <ImageButton
-                android:id="@+id/imageButton3"
+            <ImageView
+                android:id="@+id/btnFotoPoster"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@color/transparente2"
                 android:padding="5dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/camera_add_photo_svgrepo_com"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                app:layout_constraintBottom_toBottomOf="@+id/imgPoster"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></ImageButton>
+                app:layout_constraintTop_toTopOf="parent"></ImageView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
@@ -53,9 +53,9 @@
                 android:layout_marginLeft="20dp"
                 app:cardBackgroundColor="@color/verde_fondo"
                 app:cardElevation="0dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                app:layout_constraintBottom_toBottomOf="@+id/imgPoster"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView">
+                app:layout_constraintTop_toBottomOf="@+id/imgPoster">
 
             </androidx.cardview.widget.CardView>
 
@@ -69,7 +69,7 @@
                 app:layout_constraintTop_toTopOf="@+id/cardView">
 
                 <ImageView
-                    android:id="@+id/imageView2"
+                    android:id="@+id/imgPerfilEP"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -80,13 +80,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@color/transparente3"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView"
-                    app:layout_constraintStart_toStartOf="@+id/imageView"
+                    app:layout_constraintBottom_toBottomOf="@+id/imgPoster"
+                    app:layout_constraintEnd_toEndOf="@+id/imgPoster"
+                    app:layout_constraintStart_toStartOf="@+id/imgPoster"
                     app:layout_constraintTop_toTopOf="parent"></ImageView>
             </androidx.cardview.widget.CardView>
 
-            <ImageButton
+            <ImageView
+                android:id="@+id/btnFotoPerfil"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:background="@color/transparente2"
@@ -97,7 +98,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/cardView2"
                 app:layout_constraintEnd_toEndOf="@+id/cardView2"
                 app:layout_constraintStart_toStartOf="@+id/cardView2"
-                app:layout_constraintTop_toTopOf="@+id/cardView2"></ImageButton>
+                app:layout_constraintTop_toTopOf="@+id/cardView2"></ImageView>
 
             <LinearLayout
                 android:layout_width="match_parent"

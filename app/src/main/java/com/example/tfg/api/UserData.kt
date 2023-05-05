@@ -1,18 +1,18 @@
 package com.example.tfg.api
 data class UserData(
-    val apellido: String,
-    val blocked: Boolean,
-    val confirmed: Boolean,
-    val createdAt: String,
-    val email: String,
-    val fecha_nacimiento: String,
-    val foto_perfil: String,
-    val foto_poster: String,
-    val id: Int,
-    val mano_dominante: String,
-    val name: String,
-    val points: Int,
-    val provider: String,
-    val updatedAt: String,
-    val username: String
+    var apellido: String,
+    var blocked: Boolean,
+    var confirmed: Boolean,
+    var createdAt: String,
+    var email: String,
+    var fecha_nacimiento: String,
+    var foto_perfil: String,
+    var foto_poster: String,
+    var id: Int,
+    var mano_dominante: String,
+    var name: String,
+    var points: Int,
+    var provider: String,
+    var updatedAt: String,
+    var username: String
 )

@@ -1,10 +1,7 @@
 package com.example.tfg.api
 
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 
 interface ApiService {
@@ -23,4 +20,15 @@ interface ApiService {
     //Sacar usuario
     @GET("users/{id}")
     fun getUserById(@Path("id") id: String): Call<UserData>
+
+    //Actualizar usuario
+    @PUT("users/{id}")
+    fun updateUser(
+        @Body updatedUser: UserData,
+        @Path("id") id: String
+    ): Call<UserData>
+
+    //Eliminar usuario
+    @DELETE("users/{id}")
+    fun deleteUser(@Path("id") id: String): Call<Unit>
 }

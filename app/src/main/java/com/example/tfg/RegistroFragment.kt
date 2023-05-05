@@ -2,6 +2,7 @@ package com.example.tfg
 
 
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
@@ -98,6 +99,11 @@ class RegistroFragment : Fragment() {
                 if (response.isSuccessful && body != null) {
                     var registroResponse = response.body()
                     print(registroResponse)
+                    val sharedPreferences =
+                        requireContext().getSharedPreferences("login", Context.MODE_PRIVATE)
+                    val editor = sharedPreferences.edit()
+                    editor.putInt("userID", response.body()!!.user.id)
+                    editor.apply()
                     activity?.supportFragmentManager?.beginTransaction()
                         ?.replace(R.id.container, MainUsrFragment())?.commit()
                 } else {
