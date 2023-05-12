@@ -31,4 +31,8 @@ interface ApiService {
     //Eliminar usuario
     @DELETE("users/{id}")
     fun deleteUser(@Path("id") id: String): Call<Unit>
+
+    //Sacar Lista Usuarios
+    @GET("users") //
+    fun getUsers(): Call<UserListResponse>
 }
