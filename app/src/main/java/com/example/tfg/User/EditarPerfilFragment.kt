@@ -15,6 +15,7 @@ import android.webkit.MimeTypeMap
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.RadioButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -83,7 +84,17 @@ class EditarPerfilFragment : Fragment() {
                 user.name = view?.findViewById<TextView>(R.id.etEditNombre)?.text.toString()
                 user.username = view?.findViewById<TextView>(R.id.etEditarUsername)?.text.toString()
                 user.apellido = view?.findViewById<TextView>(R.id.etEditApellido)?.text.toString()
-                user.foto_perfil = imgURLFirebase
+                if (view?.findViewById<RadioButton>(R.id.ManoDerecha)?.isChecked == true){
+                    user.mano_dominante = "Diestro"
+                }else if (view?.findViewById<RadioButton>(R.id.ManoIzquierda)?.isChecked == true){
+                    user.mano_dominante = "Zurdo"
+                }else{
+                    user.mano_dominante = "Ambidiestro"
+                }
+                if (imgURLFirebase != ""){
+                    user.foto_perfil = imgURLFirebase
+                }
+
                 user.foto_poster = imgURLFirebasePoster
                 updateUser(user.id.toString(), user)
                 activity?.supportFragmentManager?.beginTransaction()
@@ -139,13 +150,11 @@ class EditarPerfilFragment : Fragment() {
                     view?.findViewById<TextView>(R.id.etEditarUsername)?.text = user.username
                     view?.findViewById<TextView>(R.id.etEditApellido)?.text = user.apellido
                     if (user.mano_dominante == "Diestro"){
-
+                        view?.findViewById<RadioButton>(R.id.ManoDerecha)?.isChecked = true
                     }else if (user.mano_dominante == "Zurdo"){
-
+                        view?.findViewById<RadioButton>(R.id.ManoIzquierda)?.isChecked = true
                     }else if (user.mano_dominante == "Ambidiestro"){
-
-                    }else{
-
+                        view?.findViewById<RadioButton>(R.id.Ambidiestro)?.isChecked = true
                     }
                     Glide.with(view)
                         .load(user.foto_perfil)

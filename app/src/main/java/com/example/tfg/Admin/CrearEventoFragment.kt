@@ -1,18 +1,23 @@
 package com.example.tfg.Admin
 
-import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.RadioButton
-import android.widget.RadioGroup
+import android.widget.Toast
 import com.example.tfg.*
+import com.example.tfg.api.ApiRest
+import com.example.tfg.api.EventsResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class CrearEventoFragment : Fragment() {
+    val TAG = "MainActivity"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -23,6 +28,7 @@ class CrearEventoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        ApiRest.initService()
         view.findViewById<EditText>(R.id.etFechaEvento).setOnClickListener() {
             showDatePickerDialog()
         }
@@ -33,6 +39,7 @@ class CrearEventoFragment : Fragment() {
             showTimePickerDialog(2)
         }
         view?.findViewById<Button>(R.id.btnCrearEvento)?.setOnClickListener {
+            crearEvento(" ","Fundacion APU","Intermedio","Mixto", "11:00","23:00","01/04/2023")
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace(R.id.container, MainAdminFragment())?.commit()
         }
@@ -45,10 +52,6 @@ class CrearEventoFragment : Fragment() {
     private fun onDateSelected(day: Int, month: Int, year: Int) {
         view?.findViewById<EditText>(R.id.etFechaEvento)
             ?.setText("$day/$month/$year")
-    }
-    private fun showTimePickerDialog(){
-        val timePicker = TimePickerFragment {onTimeSelectedInicio(it)}
-        getActivity()?.let { timePicker.show(it.getSupportFragmentManager(), "datePicker") }
     }
     private fun showTimePickerDialog(i:Int){
         if (i==1){
@@ -66,5 +69,32 @@ class CrearEventoFragment : Fragment() {
     private fun onTimeSelectedFin(time:String){
         view?.findViewById<EditText>(R.id.etHoraFinEvento)
             ?.setText("$time")
+    }
+    private fun crearEvento(foto_evento: String, titulo_evento: String, nivel: String, sexo: String, hora_inicio: String, hora_fin: String, fecha_evento: String) {
+        val data = EventsResponse(
+            EventsResponse.Data.Attributes(fecha_evento,foto_evento,hora_fin,hora_inicio,false,nivel,sexo,titulo_evento
+            )
+        )
+        val call = ApiRest.service.crearEvento(data)
+        call.enqueue(object : Callback<EventsResponse> {
+            override fun onResponse(
+                call: Call<EventsResponse>,
+                response: Response<EventsResponse>
+            ) {
+                // maneja la respuesta exitosa aquí
+                val body = response.body()
+                if (response.isSuccessful && body != null) {
+                    var registroResponse = response.body()
+                    print(registroResponse)
+//                    Toast.makeText(context, "Evento creado", Toast.LENGTH_SHORT).show()
+                } else {
+                    Log.e(TAG, response.errorBody()?.string()?: "Error")
+                }
+            }
+
+            override fun onFailure(call: Call<EventsResponse>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 }

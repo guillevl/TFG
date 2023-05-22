@@ -35,4 +35,10 @@ interface ApiService {
     //Sacar Lista Usuarios
     @GET("users") //
     fun getUsers(): Call<UserListResponse>
+
+    //Crear evento
+    @POST("events?populate=*")
+    fun crearEvento(
+        @Body request: EventsResponse
+    ): Call<EventsResponse>
 }
