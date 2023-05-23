@@ -40,8 +40,7 @@ class CrearEventoFragment : Fragment() {
         }
         view?.findViewById<Button>(R.id.btnCrearEvento)?.setOnClickListener {
             crearEvento(" ","Fundacion APU","Intermedio","Mixto", "11:00","23:00","01/04/2023")
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.container, MainAdminFragment())?.commit()
+
         }
     }
     private fun showDatePickerDialog() {
@@ -86,7 +85,9 @@ class CrearEventoFragment : Fragment() {
                 if (response.isSuccessful && body != null) {
                     var registroResponse = response.body()
                     print(registroResponse)
-//                    Toast.makeText(context, "Evento creado", Toast.LENGTH_SHORT).show()
+                    activity?.supportFragmentManager?.beginTransaction()
+                        ?.replace(R.id.container, MainAdminFragment())?.commit()
+                    Toast.makeText(context, "Evento creado", Toast.LENGTH_SHORT).show()
                 } else {
                     Log.e(TAG, response.errorBody()?.string()?: "Error")
                 }
