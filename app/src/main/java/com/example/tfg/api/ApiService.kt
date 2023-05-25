@@ -41,4 +41,8 @@ interface ApiService {
     fun crearEvento(
         @Body request: EventsResponse
     ): Call<EventsResponse>
+
+    //Sacar los eventos que no estan terminados
+    @GET("events?filters[isFinished]=false&populate=*")
+    fun getEventsNotFinished(): Call<EventsNotFinishedResponse>
 }

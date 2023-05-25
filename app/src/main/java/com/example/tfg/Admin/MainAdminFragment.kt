@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tfg.User.EventsAdapter
 import com.example.tfg.R
-import com.example.tfg.User.DetalleEventoFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -26,11 +25,11 @@ class MainAdminFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.isVisible = false
-        var rvUserInfo = view.findViewById<RecyclerView>(R.id.rvEventosPrincipal)
-        rvUserInfo.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        rvUserInfo.adapter = EventsAdapter {
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.container, DetalleEventoAdminFrgment())?.addToBackStack(null)?.commit()
-        }
+        //var rvUserInfo = view.findViewById<RecyclerView>(R.id.rvEventosPrincipal)
+        //rvUserInfo.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        //rvUserInfo.adapter = EventsAdapter {
+            //activity?.supportFragmentManager?.beginTransaction()
+               // ?.replace(R.id.container, DetalleEventoAdminFrgment())?.addToBackStack(null)?.commit()
+       // }
     }
 }

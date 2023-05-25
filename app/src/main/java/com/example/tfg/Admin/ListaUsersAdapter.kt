@@ -9,7 +9,7 @@ import com.example.tfg.R
 import com.example.tfg.api.UserListResponse
 
 class ListaUsersAdapter(
-    private val usrList: List<UserListResponse.UserListResponseItem>,
+    private val usrList: UserListResponse,
     val OnClick: (UserListResponse.UserListResponseItem) -> Unit
 ) : RecyclerView.Adapter<ListaUsersAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
