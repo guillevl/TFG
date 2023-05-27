@@ -3,8 +3,10 @@ package com.example.tfg.User
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.tfg.R
 import com.example.tfg.api.EventsNotFinishedResponse
 import com.example.tfg.api.UserListResponse
@@ -36,6 +38,10 @@ class EventsAdapter(
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(data: EventsNotFinishedResponse.Data) {
             itemView.findViewById<TextView>(R.id.tituloEventoMainUsr).text = data.attributes.titulo_evento
+            itemView.findViewById<TextView>(R.id.fechaEventMainUsr).text = data.attributes.fecha_evento
+            Glide.with(itemView)
+                .load(data.attributes.foto_evento)
+                .into(itemView.findViewById<ImageView>(R.id.imgEventoMainUsr))
             //  itemView.setOnClickListener {
             //     Log.v("Pulso sobre", item.displayName.toString())
 

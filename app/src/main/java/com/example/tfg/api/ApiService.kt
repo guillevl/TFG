@@ -45,4 +45,9 @@ interface ApiService {
     //Sacar los eventos que no estan terminados
     @GET("events?filters[isFinished]=false&populate=*")
     fun getEventsNotFinished(): Call<EventsNotFinishedResponse>
+
+    //Sacar mis eventos
+    @GET("events?populate=*")
+    fun getMisEventos(
+        @Query("filters[users][id]") id: String): Call<EventsNotFinishedResponse>
 }

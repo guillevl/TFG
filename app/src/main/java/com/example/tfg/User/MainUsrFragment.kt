@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +17,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.Locale.filter
 
 class MainUsrFragment : Fragment() {
     override fun onCreateView(
@@ -31,6 +33,19 @@ class MainUsrFragment : Fragment() {
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationViewAdmin)?.isVisible = false
         ApiRest.initService()
         getEventsNotFinished(view)
+
+        val SV = view.findViewById<androidx.appcompat.widget.SearchView>(R.id.svSearch)
+        SV.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                var rvUserInfo = view.findViewById<RecyclerView>(R.id.rvEventosPrincipal)
+                (rvUserInfo.adapter).filter(newText.orEmpty())
+                return true
+            }
+        })
     }
     private fun getEventsNotFinished(view: View) {
         val call = ApiRest.service.getEventsNotFinished()

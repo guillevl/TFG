@@ -14,9 +14,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:cardCornerRadius="10dp"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="7dp"
         android:layout_marginRight="15dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="7dp"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.cardview.widget.CardView
@@ -32,11 +32,19 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/imageView5"
+                    android:id="@+id/ivFotoEventoMisEventos"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     android:src="@drawable/fondo_eventos" />
+
+                <ImageView
+                    android:id="@+id/ivfondodegradado"
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/degradado_carta_evento"
+                    app:layout_constraintTop_toTopOf="@+id/cardView9" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardView9"
@@ -47,9 +55,10 @@
                     app:layout_constraintBottom_toBottomOf="parent" />
 
                 <TextView
+                    android:id="@+id/txtNombreEventMisEvents"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="10dp"
                     android:text="Torneo Virgen de los Remedios"
                     android:textColor="@color/white"
                     android:textSize="22dp"
@@ -58,9 +67,10 @@
                     app:layout_constraintTop_toBottomOf="@+id/cardView9"></TextView>
 
                 <TextView
+                    android:id="@+id/txtFechaEventoMisEventos"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="7dp"
                     android:text="10/02/2023"
                     android:textColor="@color/white"

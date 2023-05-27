@@ -1,5 +1,6 @@
 package com.example.tfg.User
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -33,12 +34,39 @@ class MisEventosFragment : Fragment() {
         val card = view.findViewById<CardView>(R.id.cadviewEvento)
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationViewAdmin)?.isVisible =
             false
-        //var rvUserInfo = view.findViewById<RecyclerView>(R.id.rvMisEventosPrincipal)
-        //rvUserInfo.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        //rvUserInfo.adapter = EventsAdapter {
-        //activity?.supportFragmentManager?.beginTransaction()
-         //?.replace(R.id.container, DetalleEventoAdminFrgment())?.addToBackStack(null)?.commit()
-        //}
+        val sharedPreferencesGet =
+            requireContext().getSharedPreferences("login", Context.MODE_PRIVATE)
+        val getID = sharedPreferencesGet.getInt("userID", 0)
+        ApiRest.initService()
+        getMisEventos(view,getID.toString())
     }
+    private fun getMisEventos(view: View,id: String) {
+        val call = ApiRest.service.getMisEventos(id)
+        call.enqueue(object : Callback<EventsNotFinishedResponse> {
+            override fun onResponse(
+                call: Call<EventsNotFinishedResponse>,
+                response: Response<EventsNotFinishedResponse>
+            ) {
+                val body = response.body()
+                if (response.isSuccessful && body != null) {
+                    var evtsNot = body
+                    var rvUserInfo = view.findViewById<RecyclerView>(R.id.rvMisEventosPrincipal)
+                    rvUserInfo?.layoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                    rvUserInfo?.adapter = MisEventsAdapter(evtsNot) {
+                        it.id
+                        activity?.supportFragmentManager?.beginTransaction()
+                            ?.replace(R.id.container, DetalleEventoFragment())?.addToBackStack(null)?.commit()
+                    }
+                    Log.i("getAds", evtsNot.toString())
+                } else {
+                    Log.e("getAds", response.errorBody()?.string() ?: "Error getting user:")
+                }
+            }
 
+            override fun onFailure(call: Call<EventsNotFinishedResponse>, t: Throwable) {
+                Log.e("getAdsOnFailure", "Error: ${t.message}")
+            }
+        })
+    }
 }
