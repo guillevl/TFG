@@ -7,13 +7,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tfg.Admin.DetalleEventoAdminFrgment
+import com.bumptech.glide.Glide
 import com.example.tfg.R
 import com.example.tfg.api.ApiRest
+import com.example.tfg.api.EventData
 import com.example.tfg.api.EventsNotFinishedResponse
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
@@ -53,10 +57,15 @@ class MisEventosFragment : Fragment() {
                     var rvUserInfo = view.findViewById<RecyclerView>(R.id.rvMisEventosPrincipal)
                     rvUserInfo?.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                    rvUserInfo?.adapter = MisEventsAdapter(evtsNot) {
-                        it.id
-                        activity?.supportFragmentManager?.beginTransaction()
-                            ?.replace(R.id.container, DetalleEventoFragment())?.addToBackStack(null)?.commit()
+                    rvUserInfo?.adapter = MisEventsAdapter(evtsNot) {eventId ->
+                        activity?.let {
+                            val fragment = DetalleEventoMisEventoFragment()
+                            fragment.arguments= Bundle().apply {
+                                putString("eventIds",eventId.id.toString())
+                            }
+                            it.supportFragmentManager.beginTransaction()
+                                .replace(R.id.container, fragment)?.addToBackStack(null)?.commit()
+                        }
                     }
                     Log.i("getAds", evtsNot.toString())
                 } else {

@@ -22,27 +22,25 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetalleEventoFragment : Fragment() {
-
-
+class DetalleEventoMisEventoFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detalle_evento, container, false)
+        return inflater.inflate(R.layout.fragment_detalle_evento_mis_evento, container, false)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.isVisible = false
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationViewAdmin)?.isVisible = false
-        val eventId =
+        val eventIds =
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
-                arguments?.getString("eventId")
+                arguments?.getString("eventIds")
             } else {
-                arguments?.getString("eventId")
+                arguments?.getString("eventIds")
             }
-        getEventById(eventId!!,view)
+        getEventById(eventIds!!,view)
         val builder = AlertDialog.Builder(context)
         builder.setTitle("Unirte a el evento")
             .setMessage("¿Seguro que deseas unirte al evento?")
@@ -56,7 +54,7 @@ class DetalleEventoFragment : Fragment() {
             }
         val alerta = builder.create()
 
-        view?.findViewById<Button>(R.id.btnUnirmeEventoMainUsr)?.setOnClickListener {
+        view?.findViewById<Button>(R.id.btnSalirEventoMisEventos)?.setOnClickListener {
             alerta.show()
         }
     }
@@ -67,20 +65,20 @@ class DetalleEventoFragment : Fragment() {
                 // maneja la respuesta exitosa aquí
                 val body = response.body()
                 if (response.isSuccessful && body != null) {
-                    view?.findViewById<TextView>(R.id.tvFechaEventoDetalleMainUsr)?.text = body.data.attributes.fecha_evento
-                    view?.findViewById<TextView>(R.id.tvTituloEventoDetalleMainUsr)?.text = body.data.attributes.titulo_evento
+                    view?.findViewById<TextView>(R.id.tvFechaEventoDetalleMisEventos)?.text = body.data.attributes.fecha_evento
+                    view?.findViewById<TextView>(R.id.tvTituloEventoDetalleMisEventos)?.text = body.data.attributes.titulo_evento
                     val hora_inicio = body.data.attributes.hora_inicio.substring(0,5)
                     val hora_fin = body.data.attributes.hora_fin.substring(0,5)
-                    view?.findViewById<TextView>(R.id.tvHoraEventoDetalleMainUsr)?.text = hora_inicio +" - "+hora_fin
-                    view?.findViewById<TextView>(R.id.tvNivelEventoDetalleMainUsr)?.text = body.data.attributes.nivel
-                    view?.findViewById<TextView>(R.id.tvSexoEventoDetalleMainUsr)?.text = ":   "+body.data.attributes.sexo
-                    val listaUsersEventosMainUsr = body.data.attributes.users.data
+                    view?.findViewById<TextView>(R.id.tvHoraEventoDetalleMisEventos)?.text = hora_inicio +" - "+hora_fin
+                    view?.findViewById<TextView>(R.id.tvNivelEventoDetalleMisEventos)?.text = body.data.attributes.nivel
+                    view?.findViewById<TextView>(R.id.tvSexoEventoDetalleMisEventos)?.text = ":   "+body.data.attributes.sexo
+                    val listaUsersEventosMisEventos = body.data.attributes.users.data
                     Glide.with(view)
                         .load(body.data.attributes.foto_evento)
-                        .into(view.findViewById<ImageView>(R.id.ivFotoEventoDetalleMainUser))
-                    var rvUserInfo = view.findViewById<RecyclerView>(R.id.rvDetalleEventosMainUsr)
+                        .into(view.findViewById<ImageView>(R.id.ivFotoEventoDetalleMisEventos))
+                    var rvUserInfo = view.findViewById<RecyclerView>(R.id.rvDetalleEventosMisEventos)
                     rvUserInfo.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                    rvUserInfo.adapter = DetalleEventosAdapter (listaUsersEventosMainUsr){}
+                    rvUserInfo.adapter = DetalleEventosAdapterMisEventos (listaUsersEventosMisEventos){}
                     Log.i("EditProfileFragment", body.toString())
 
                 } else {

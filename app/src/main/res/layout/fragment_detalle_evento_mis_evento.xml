@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".User.DetalleEventoFragment">
+    tools:context=".User.DetalleEventoMisEventoFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/ivFotoEventoDetalleMainUser"
+            android:id="@+id/ivFotoEventoDetalleMisEventos"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             app:layout_constraintTop_toTopOf="parent"
@@ -24,7 +24,7 @@
             android:layout_marginTop="-20dp"
             android:backgroundTint="@color/verde_fondo"
             app:cardCornerRadius="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/ivFotoEventoDetalleMainUser">
+            app:layout_constraintTop_toBottomOf="@+id/ivFotoEventoDetalleMisEventos">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -32,7 +32,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tvFechaEventoDetalleMainUsr"
+                    android:id="@+id/tvFechaEventoDetalleMisEventos"
                     android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
                     android:textAlignment="center"
                     android:textSize="18dp"/>
                 <TextView
-                    android:id="@+id/tvTituloEventoDetalleMainUsr"
+                    android:id="@+id/tvTituloEventoDetalleMisEventos"
                     android:layout_width="340dp"
                     android:layout_height="wrap_content"
                     android:textAllCaps="true"
@@ -64,7 +64,7 @@
                         android:textAlignment="center"
                         android:textSize="20dp"/>
                     <TextView
-                        android:id="@+id/tvHoraEventoDetalleMainUsr"
+                        android:id="@+id/tvHoraEventoDetalleMisEventos"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
@@ -86,7 +86,7 @@
                         android:scaleType="centerCrop"
                         android:src="@drawable/generos"></ImageView>
                     <TextView
-                        android:id="@+id/tvSexoEventoDetalleMainUsr"
+                        android:id="@+id/tvSexoEventoDetalleMisEventos"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
@@ -109,7 +109,7 @@
                         android:textAlignment="center"
                         android:textSize="20dp"/>
                     <TextView
-                        android:id="@+id/tvNivelEventoDetalleMainUsr"
+                        android:id="@+id/tvNivelEventoDetalleMisEventos"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
@@ -127,21 +127,20 @@
                     android:textColor="@color/white"
                     android:textSize="20dp"/>
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvDetalleEventosMainUsr"
+                    android:id="@+id/rvDetalleEventosMisEventos"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"></androidx.recyclerview.widget.RecyclerView>
                 <com.google.android.material.button.MaterialButton
                     android:layout_marginTop="10dp"
-                    android:id="@+id/btnUnirmeEventoMainUsr"
-                    android:layout_width="150dp"
-                    android:layout_height="50dp"
-                    android:backgroundTint="@color/verde_pelota"
-                    android:text="Unirme"
+                    android:id="@+id/btnSalirEventoMisEventos"
+                    android:layout_width="170dp"
+                    android:layout_height="55dp"
+                    android:backgroundTint="@color/rojo"
+                    android:text="Abandonar"
                     android:textColor="@color/white"
                     android:textSize="18dp"
                     app:cornerRadius="13dp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </FrameLayout>

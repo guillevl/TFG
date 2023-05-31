@@ -48,10 +48,15 @@ class MainAdminFragment : Fragment() {
                     var rvUserInfo = view.findViewById<RecyclerView>(R.id.rvEventosPrincipalAdmin)
                     rvUserInfo?.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                    rvUserInfo?.adapter = EventsAdapter(evtsNot) {
-                        it.id
-                        activity?.supportFragmentManager?.beginTransaction()
-                            ?.replace(R.id.container, DetalleEventoAdminFrgment())?.addToBackStack(null)?.commit()
+                    rvUserInfo?.adapter = EventsAdapter(evtsNot) { eventId ->
+                        activity?.let {
+                            val fragment = DetalleEventoAdminFrgment()
+                            fragment.arguments= Bundle().apply {
+                                putString("eventIdsAdmin",eventId.id.toString())
+                            }
+                            it.supportFragmentManager.beginTransaction()
+                                .replace(R.id.container, fragment)?.addToBackStack(null)?.commit()
+                        }
                     }
                     Log.i("getAds", evtsNot.toString())
                 } else {

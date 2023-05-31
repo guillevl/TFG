@@ -50,4 +50,9 @@ interface ApiService {
     @GET("events?populate=*")
     fun getMisEventos(
         @Query("filters[users][id]") id: String): Call<EventsNotFinishedResponse>
+
+    //Sacar un evento
+    @GET("events/{id}?populate=*")
+    fun getEventById(@Path("id") id: String): Call<EventData>
+
 }

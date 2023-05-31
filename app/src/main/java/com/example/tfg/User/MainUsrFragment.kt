@@ -1,6 +1,7 @@
 package com.example.tfg.User
 
 import android.os.Bundle
+import android.text.TextUtils.replace
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -33,7 +34,7 @@ class MainUsrFragment : Fragment() {
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationViewAdmin)?.isVisible = false
         ApiRest.initService()
         getEventsNotFinished(view)
-
+/**
         val SV = view.findViewById<androidx.appcompat.widget.SearchView>(R.id.svSearch)
         SV.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -46,6 +47,7 @@ class MainUsrFragment : Fragment() {
                 return true
             }
         })
+        **/
     }
     private fun getEventsNotFinished(view: View) {
         val call = ApiRest.service.getEventsNotFinished()
@@ -60,10 +62,15 @@ class MainUsrFragment : Fragment() {
                     var rvUserInfo = view.findViewById<RecyclerView>(R.id.rvEventosPrincipal)
                     rvUserInfo?.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                    rvUserInfo?.adapter = EventsAdapter(evtsNot) {
-                        it.id
-                        activity?.supportFragmentManager?.beginTransaction()
-                            ?.replace(R.id.container, DetalleEventoFragment())?.addToBackStack(null)?.commit()
+                    rvUserInfo?.adapter = EventsAdapter(evtsNot) {eventId ->
+                        activity?.let {
+                            val fragment = DetalleEventoFragment()
+                            fragment.arguments= Bundle().apply {
+                                putString("eventId",eventId.id.toString())
+                            }
+                            it.supportFragmentManager.beginTransaction()
+                                .replace(R.id.container, fragment)?.addToBackStack(null)?.commit()
+                        }
                     }
                     Log.i("getAds", evtsNot.toString())
                 } else {

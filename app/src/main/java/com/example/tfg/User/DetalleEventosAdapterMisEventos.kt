@@ -11,10 +11,10 @@ import com.bumptech.glide.Glide
 import com.example.tfg.R
 import com.example.tfg.api.EventData
 
-class DetalleEventosAdapter(
-    private val listaUsersEventosMainUsr: List<EventData.Data.Attributes.Users.Data>,
+class DetalleEventosAdapterMisEventos(
+    private val listaUsersEventosMisEventos: List<EventData.Data.Attributes.Users.Data>,
     val OnClick: () -> Unit
-): RecyclerView.Adapter<DetalleEventosAdapter.ViewHolder>() {
+): RecyclerView.Adapter<DetalleEventosAdapterMisEventos.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
             LayoutInflater.from(parent.context)
@@ -23,7 +23,7 @@ class DetalleEventosAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var data = listaUsersEventosMainUsr[position]
+        var data = listaUsersEventosMisEventos[position]
         holder.bind(data)
         holder.itemView.setOnClickListener {
             OnClick()
@@ -31,7 +31,7 @@ class DetalleEventosAdapter(
     }
 
     override fun getItemCount(): Int {
-        return listaUsersEventosMainUsr.size
+        return listaUsersEventosMisEventos.size
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
