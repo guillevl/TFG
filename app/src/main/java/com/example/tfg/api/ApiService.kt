@@ -1,5 +1,6 @@
 package com.example.tfg.api
 
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -55,4 +56,10 @@ interface ApiService {
     @GET("events/{id}?populate=*")
     fun getEventById(@Path("id") id: String): Call<EventData>
 
+    //actualizar evento
+    @PUT("events/{id}")
+    fun updateEvent(
+        @Body updatedEvent: EventsResponse,
+        @Path("id") id: String
+    ): Call<EventData>
 }

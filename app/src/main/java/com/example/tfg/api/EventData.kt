@@ -1,47 +1,46 @@
 package com.example.tfg.api
 
 data class EventData(
-    val `data`: Data
+    var `data`: Data
 ) {
     data class Data(
-        val attributes: Attributes,
-        val id: Int
+        var attributes: Attributes,
+        var id: Int
     ) {
         data class Attributes(
-            val createdAt: String,
-            val fecha_evento: String,
-            val foto_evento: String,
-            val hora_fin: String,
-            val hora_inicio: String,
-            val isFinished: Boolean,
-            val nivel: String,
-            val sexo: String,
-            val titulo_evento: String,
-            val updatedAt: String,
-            val users: Users
+            var fecha_evento: String,
+            var foto_evento: String,
+            var hora_fin: String,
+            var hora_inicio: String,
+            var isFinished: Boolean,
+            var nivel: String,
+            var sexo: String,
+            var titulo_evento: String,
+            var updatedAt: String,
+            var users: Users
         ) {
             data class Users(
-                val `data`: List<Data>
+                var `data`: List<Data>
             ) {
                 data class Data(
-                    val attributes: Attributes,
-                    val id: Int
+                    var attributes: Attributes,
+                    var id: Int
                 ) {
                     data class Attributes(
-                        val apellido: String,
-                        val blocked: Boolean,
-                        val confirmed: Boolean,
-                        val createdAt: String,
-                        val email: String,
-                        val fecha_nacimiento: String,
-                        val foto_perfil: String,
-                        val foto_poster: String,
-                        val mano_dominante: String,
-                        val name: String,
-                        val points: Int,
-                        val provider: String,
-                        val updatedAt: String,
-                        val username: String
+                        var apellido: String,
+                        var blocked: Boolean,
+                        var confirmed: Boolean,
+                        var createdAt: String,
+                        var email: String,
+                        var fecha_nacimiento: String,
+                        var foto_perfil: String,
+                        var foto_poster: String,
+                        var mano_dominante: String,
+                        var name: String,
+                        var points: Int,
+                        var provider: String,
+                        var updatedAt: String,
+                        var username: String
                     )
                 }
             }
