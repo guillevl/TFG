@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +22,7 @@ import retrofit2.Response
 
 
 class MainAdminFragment : Fragment() {
+    private lateinit var searchView: SearchView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,11 +34,34 @@ class MainAdminFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.isVisible = false
+        var titular = ""
         ApiRest.initService()
-        getEventsNotFinished(view)
+        getEventsNotFinished(view,titular)
+        searchView = view.findViewById(R.id.svSearchAdmin)
+
+        // Configurar el listener de búsqueda
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                // Realizar la búsqueda aquí
+                if (!query.isNullOrEmpty()) {
+                    titular = query
+                    getEventsNotFinished(view, titular)
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                // Actualizar la búsqueda mientras se escribe
+                if (!newText.isNullOrEmpty()) {
+                    titular = newText
+                    getEventsNotFinished(view, titular)
+                }
+                return false
+            }
+        })
     }
-    private fun getEventsNotFinished(view: View) {
-        val call = ApiRest.service.getEventsNotFinished()
+    private fun getEventsNotFinished(view: View,titu:String) {
+        val call = ApiRest.service.getEventsNotFinished(false,"*",titu)
         call.enqueue(object : Callback<EventsNotFinishedResponse> {
             override fun onResponse(
                 call: Call<EventsNotFinishedResponse>,

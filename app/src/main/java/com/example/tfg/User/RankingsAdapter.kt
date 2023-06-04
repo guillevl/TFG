@@ -3,10 +3,18 @@ package com.example.tfg.User
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.tfg.R
+import com.example.tfg.api.UserListResponse
 
-class RankingsAdapter (val OnClick: () -> Unit): RecyclerView.Adapter<RankingsAdapter.ViewHolder>() {
+class RankingsAdapter (
+    private val usrList: UserListResponse,
+    val OnClick: () -> Unit
+): RecyclerView.Adapter<RankingsAdapter.ViewHolder>() {
+    var posicion= 1
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
             LayoutInflater.from(parent.context)
@@ -15,22 +23,26 @@ class RankingsAdapter (val OnClick: () -> Unit): RecyclerView.Adapter<RankingsAd
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        //  holder.bind(data[position])
+        var data = usrList[position]
+        holder.bind(data)
         holder.itemView.setOnClickListener {
             OnClick()
         }
     }
 
-    override fun getItemCount(): Int = 7
+    override fun getItemCount(): Int {
+        return usrList.size
+    }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        //  fun bind(item:AgentsResponse.Agent) {
-
-        //  itemView.setOnClickListener {
-        //     Log.v("Pulso sobre", item.displayName.toString())
-
-        //  }
+        fun bind(data: UserListResponse.UserListResponseItem) {
+            itemView.findViewById<TextView>(R.id.tvNombreUsrRanking).text = data.username
+            itemView.findViewById<TextView>(R.id.tvNumeroRanking).text = "#"+posicion
+            Glide.with(itemView)
+                .load(data.foto_perfil)
+                .into(itemView.findViewById<ImageView>(R.id.ivFotoPerfilRanking))
+            posicion +=1
+        }
     }
 }
 

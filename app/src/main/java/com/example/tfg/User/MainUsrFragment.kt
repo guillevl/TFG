@@ -1,7 +1,6 @@
 package com.example.tfg.User
 
 import android.os.Bundle
-import android.text.TextUtils.replace
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -18,9 +17,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.Locale.filter
 
 class MainUsrFragment : Fragment() {
+    private lateinit var searchView: SearchView
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,26 +31,38 @@ class MainUsrFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationViewAdmin)?.isVisible = false
+        activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationViewAdmin)?.isVisible =
+            false
+        var titular = ""
         ApiRest.initService()
-        getEventsNotFinished(view)
-/**
-        val SV = view.findViewById<androidx.appcompat.widget.SearchView>(R.id.svSearch)
-        SV.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        getEventsNotFinished(view, titular)
+        searchView = view.findViewById(R.id.svSearch)
+
+        // Configurar el listener de búsqueda
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
+                // Realizar la búsqueda aquí
+                if (!query.isNullOrEmpty()) {
+                    titular = query
+                    getEventsNotFinished(view, titular)
+                }
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                var rvUserInfo = view.findViewById<RecyclerView>(R.id.rvEventosPrincipal)
-                (rvUserInfo.adapter).filter(newText.orEmpty())
-                return true
+                // Actualizar la búsqueda mientras se escribe
+                if (!newText.isNullOrEmpty()) {
+                    titular = newText
+                    getEventsNotFinished(view, titular)
+                }
+                return false
             }
         })
-        **/
     }
-    private fun getEventsNotFinished(view: View) {
-        val call = ApiRest.service.getEventsNotFinished()
+
+
+    private fun getEventsNotFinished(view: View, titulo: String) {
+        val call = ApiRest.service.getEventsNotFinished(false,"*",titulo)
         call.enqueue(object : Callback<EventsNotFinishedResponse> {
             override fun onResponse(
                 call: Call<EventsNotFinishedResponse>,
@@ -62,14 +74,15 @@ class MainUsrFragment : Fragment() {
                     var rvUserInfo = view.findViewById<RecyclerView>(R.id.rvEventosPrincipal)
                     rvUserInfo?.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                    rvUserInfo?.adapter = EventsAdapter(evtsNot) {eventId ->
+                    rvUserInfo?.adapter = EventsAdapter(evtsNot) { eventId ->
                         activity?.let {
                             val fragment = DetalleEventoFragment()
-                            fragment.arguments= Bundle().apply {
-                                putString("eventId",eventId.id.toString())
+                            fragment.arguments = Bundle().apply {
+                                putString("eventId", eventId.id.toString())
                             }
                             it.supportFragmentManager.beginTransaction()
-                                .replace(R.id.container, fragment)?.addToBackStack(null)?.commit()
+                                .replace(R.id.container, fragment)?.addToBackStack(null)
+                                ?.commit()
                         }
                     }
                     Log.i("getAds", evtsNot.toString())

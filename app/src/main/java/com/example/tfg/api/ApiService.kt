@@ -34,7 +34,7 @@ interface ApiService {
     fun deleteUser(@Path("id") id: String): Call<Unit>
 
     //Sacar Lista Usuarios
-    @GET("users") //
+    @GET("users?filters[username][\$ne]=admin") //
     fun getUsers(): Call<UserListResponse>
 
     //Crear evento
@@ -44,8 +44,12 @@ interface ApiService {
     ): Call<EventsResponse>
 
     //Sacar los eventos que no estan terminados
-    @GET("events?filters[isFinished]=false&populate=*")
-    fun getEventsNotFinished(): Call<EventsNotFinishedResponse>
+    @GET("events")
+    fun getEventsNotFinished(
+        @Query("filters[isFinished]") isFinished: Boolean,
+        @Query("populate") populate: String,
+        @Query("filters[titulo_evento][\$containsi]")tit:String
+    ): Call<EventsNotFinishedResponse>
 
     //Sacar mis eventos
     @GET("events?populate=*")
@@ -62,4 +66,8 @@ interface ApiService {
         @Body updatedEvent: EventsResponse,
         @Path("id") id: String
     ): Call<EventData>
+
+    //sacar el ranking de los ususarios
+    @GET("users?sort[0]=points:desc&filters[username][\$not]=admin")
+    fun getRankingUsers(): Call<UserListResponse>
 }

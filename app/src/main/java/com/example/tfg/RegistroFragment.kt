@@ -87,7 +87,8 @@ class RegistroFragment : Fragment() {
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationViewAdmin)?.isVisible = true
     }
     private fun register(email: String, password: String, username: String, name: String, apellido: String, fecha_nacimiento: String) {
-        val crearUser = RegisterData(email, password, username,name, apellido, fecha_nacimiento)
+        val crearUser = RegisterData("https://firebasestorage.googleapis.com/v0/b/tfg-gv.appspot.com/o/notes%2Fimages%2Fd550a046-461e-4927-b2b2-b8aeee8e4ced.jpg%2Fimages%2F34?alt=media&token=6ab8923f-4545-446f-8187-214eb2a8d7ed",
+            email, password, username,name, apellido, fecha_nacimiento)
         val call = ApiRest.service.meterUser(crearUser)
         call.enqueue(object : Callback<RegisterResponse> {
             override fun onResponse(

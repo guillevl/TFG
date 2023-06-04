@@ -34,7 +34,6 @@ class ListaUsersAdapter(
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         fun bind(data: UserListResponse.UserListResponseItem) {
             itemView.findViewById<TextView>(R.id.tvNombreUsrLista).text = data.username
             Glide.with(itemView)
