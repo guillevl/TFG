@@ -36,8 +36,10 @@ class RankingsAdapter (
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(data: UserListResponse.UserListResponseItem) {
-            itemView.findViewById<TextView>(R.id.tvNombreUsrRanking).text = data.username
-            itemView.findViewById<TextView>(R.id.tvNumeroRanking).text = "#"+posicion
+            itemView.findViewById<TextView>(R.id.tvNombreUsrRanking).text = data.name +" "+ data.apellido
+            itemView.findViewById<TextView>(R.id.tvUsernameUsrRanking).text = "@"+data.username
+            itemView.findViewById<TextView>(R.id.tvPuntosUserRanking).text = data.points.toString()+"pts"
+            itemView.findViewById<TextView>(R.id.tvNumeroRanking).text = posicion.toString()
             Glide.with(itemView)
                 .load(data.foto_perfil)
                 .into(itemView.findViewById<ImageView>(R.id.ivFotoPerfilRanking))

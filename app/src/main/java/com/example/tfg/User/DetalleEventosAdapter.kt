@@ -36,7 +36,8 @@ class DetalleEventosAdapter(
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item: EventData.Data.Attributes.Users.Data) {
-            itemView.findViewById<TextView>(R.id.tvNombreUsrLista).text = item.attributes.username
+            itemView.findViewById<TextView>(R.id.tvNombreUsrLista).text = item.attributes.name+ " "+item.attributes.apellido
+            itemView.findViewById<TextView>(R.id.tvUsrnameUsrLista).text = "@"+item.attributes.username
             Glide.with(itemView)
                 .load(item.attributes.foto_perfil)
                 .into(itemView.findViewById<ImageView>(R.id.imgPerfilListaAdmin))

@@ -10,6 +10,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tfg.MainActivity
 import com.example.tfg.User.EventsAdapter
 import com.example.tfg.R
 import com.example.tfg.User.DetalleEventoFragment
@@ -34,6 +35,8 @@ class MainAdminFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.isVisible = false
+        var mainActivity = activity as MainActivity
+        mainActivity.setupKeyboardVisibilityListener2()
         var titular = ""
         ApiRest.initService()
         getEventsNotFinished(view,titular)

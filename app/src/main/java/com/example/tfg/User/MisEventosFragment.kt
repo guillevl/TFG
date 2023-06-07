@@ -15,6 +15,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.tfg.MainActivity
 import com.example.tfg.R
 import com.example.tfg.api.ApiRest
 import com.example.tfg.api.EventData
@@ -38,6 +39,8 @@ class MisEventosFragment : Fragment() {
         val card = view.findViewById<CardView>(R.id.cadviewEvento)
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationViewAdmin)?.isVisible =
             false
+        var mainActivity = activity as MainActivity
+        mainActivity.setupKeyboardVisibilityListener()
         val sharedPreferencesGet =
             requireContext().getSharedPreferences("login", Context.MODE_PRIVATE)
         val getID = sharedPreferencesGet.getInt("userID", 0)

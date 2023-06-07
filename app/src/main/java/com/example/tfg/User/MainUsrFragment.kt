@@ -10,6 +10,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tfg.MainActivity
 import com.example.tfg.R
 import com.example.tfg.api.ApiRest
 import com.example.tfg.api.EventsNotFinishedResponse
@@ -33,6 +34,8 @@ class MainUsrFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationViewAdmin)?.isVisible =
             false
+        var mainActivity = activity as MainActivity
+        mainActivity.setupKeyboardVisibilityListener()
         var titular = ""
         ApiRest.initService()
         getEventsNotFinished(view, titular)
