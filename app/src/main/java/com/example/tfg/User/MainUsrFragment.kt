@@ -54,10 +54,10 @@ class MainUsrFragment : Fragment() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 // Actualizar la búsqueda mientras se escribe
-                if (!newText.isNullOrEmpty()) {
-                    titular = newText
-                    getEventsNotFinished(view, titular)
-                }
+
+                titular = newText!!
+                getEventsNotFinished(view, titular)
+
                 return false
             }
         })
@@ -65,7 +65,8 @@ class MainUsrFragment : Fragment() {
 
 
     private fun getEventsNotFinished(view: View, titulo: String) {
-        val call = ApiRest.service.getEventsNotFinished(false,"*",titulo)
+        val call =
+            ApiRest.service.getEventsNotFinished(false, "*", titulo, titulo, titulo, titulo, titulo)
         call.enqueue(object : Callback<EventsNotFinishedResponse> {
             override fun onResponse(
                 call: Call<EventsNotFinishedResponse>,

@@ -48,13 +48,24 @@ interface ApiService {
     fun getEventsNotFinished(
         @Query("filters[isFinished]") isFinished: Boolean,
         @Query("populate") populate: String,
-        @Query("filters[titulo_evento][\$containsi]")tit:String
+        @Query("filters[\$or][0][titulo_evento][\$containsi]")tit:String,
+        @Query("filters[\$or][1][fecha_evento][\$containsi]")fech:String,
+        @Query("filters[\$or][2][sexo][\$containsi]")sex:String,
+        @Query("filters[\$or][3][nivel][\$containsi]")nivl:String,
+        @Query("filters[\$or][4][hora_inicio][\$containsi]")hora:String
     ): Call<EventsNotFinishedResponse>
 
     //Sacar mis eventos
-    @GET("events?populate=*")
+    @GET("events")
     fun getMisEventos(
-        @Query("filters[users][id]") id: String): Call<EventsNotFinishedResponse>
+        @Query("filters[users][id]") id: String,
+        @Query("populate") populate: String,
+        @Query("filters[\$or][0][titulo_evento][\$containsi]")tit:String,
+        @Query("filters[\$or][1][fecha_evento][\$containsi]")fech:String,
+        @Query("filters[\$or][2][sexo][\$containsi]")sex:String,
+        @Query("filters[\$or][3][nivel][\$containsi]")nivl:String,
+        @Query("filters[\$or][4][hora_inicio][\$containsi]")hora:String
+    ): Call<EventsNotFinishedResponse>
 
     //Sacar un evento
     @GET("events/{id}?populate=*")
@@ -70,4 +81,14 @@ interface ApiService {
     //sacar el ranking de los ususarios
     @GET("users?sort[0]=points:desc&filters[username][\$not]=admin")
     fun getRankingUsers(): Call<UserListResponse>
+
+    //añadir o quitar relacion evento-usuario
+    @PUT("users/{id}")
+    fun updateRelacion(
+        @Body updateRelacion: UsersEventsResponse,
+        @Path("id") id: String
+    ): Call<UsersEventsResponse>
+    //sacar usuario para hacer el put
+    @GET("users/{id}?populate=events")
+    fun getUsersEvents(@Path("id") id: String): Call<UsersEventsResponse>
 }

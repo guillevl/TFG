@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.SearchView
 import androidx.cardview.widget.CardView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,6 +27,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MisEventosFragment : Fragment() {
+    private lateinit var searchView: SearchView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,10 +47,33 @@ class MisEventosFragment : Fragment() {
             requireContext().getSharedPreferences("login", Context.MODE_PRIVATE)
         val getID = sharedPreferencesGet.getInt("userID", 0)
         ApiRest.initService()
-        getMisEventos(view,getID.toString())
+        var titular = ""
+        getMisEventos(view,getID.toString(),titular)
+        searchView = view.findViewById(R.id.svSearchMisEventos)
+
+        // Configurar el listener de búsqueda
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                // Realizar la búsqueda aquí
+                if (!query.isNullOrEmpty()) {
+                    titular = query
+                    getMisEventos(view,getID.toString(),titular)
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                // Actualizar la búsqueda mientras se escribe
+
+                titular = newText!!
+                getMisEventos(view,getID.toString(),titular)
+
+                return false
+            }
+        })
     }
-    private fun getMisEventos(view: View,id: String) {
-        val call = ApiRest.service.getMisEventos(id)
+    private fun getMisEventos(view: View,id: String,titu:String) {
+        val call = ApiRest.service.getMisEventos(id,"*",titu,titu,titu,titu,titu)
         call.enqueue(object : Callback<EventsNotFinishedResponse> {
             override fun onResponse(
                 call: Call<EventsNotFinishedResponse>,

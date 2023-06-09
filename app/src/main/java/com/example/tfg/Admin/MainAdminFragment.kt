@@ -39,7 +39,7 @@ class MainAdminFragment : Fragment() {
         mainActivity.setupKeyboardVisibilityListener2()
         var titular = ""
         ApiRest.initService()
-        getEventsNotFinished(view,titular)
+        getEventsNotFinished(view, titular)
         searchView = view.findViewById(R.id.svSearchAdmin)
 
         // Configurar el listener de búsqueda
@@ -55,16 +55,15 @@ class MainAdminFragment : Fragment() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 // Actualizar la búsqueda mientras se escribe
-                if (!newText.isNullOrEmpty()) {
-                    titular = newText
-                    getEventsNotFinished(view, titular)
-                }
+                titular = newText!!
+                getEventsNotFinished(view, titular)
                 return false
             }
         })
     }
-    private fun getEventsNotFinished(view: View,titu:String) {
-        val call = ApiRest.service.getEventsNotFinished(false,"*",titu)
+
+    private fun getEventsNotFinished(view: View, titu: String) {
+        val call = ApiRest.service.getEventsNotFinished(false, "*", titu, titu, titu, titu, titu)
         call.enqueue(object : Callback<EventsNotFinishedResponse> {
             override fun onResponse(
                 call: Call<EventsNotFinishedResponse>,
@@ -79,8 +78,8 @@ class MainAdminFragment : Fragment() {
                     rvUserInfo?.adapter = EventsAdapter(evtsNot) { eventId ->
                         activity?.let {
                             val fragment = DetalleEventoAdminFrgment()
-                            fragment.arguments= Bundle().apply {
-                                putString("eventIdsAdmin",eventId.id.toString())
+                            fragment.arguments = Bundle().apply {
+                                putString("eventIdsAdmin", eventId.id.toString())
                             }
                             it.supportFragmentManager.beginTransaction()
                                 .replace(R.id.container, fragment)?.addToBackStack(null)?.commit()
