@@ -82,6 +82,13 @@ class LoginFragment : Fragment() {
                 val body = response.body()
                 if (response.isSuccessful && body != null) {
                     if (usernameOrEmail==("admin@gmail.com")){
+                        val userId = body.user.id
+                        //Guardamos el id y el token en local
+                        val sharedPreferences =
+                            requireContext().getSharedPreferences("login", Context.MODE_PRIVATE)
+                        val editor = sharedPreferences.edit()
+                        editor.putInt("userID", userId)
+                        editor.apply()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.container, MainAdminFragment())?.commit()
                     }else{

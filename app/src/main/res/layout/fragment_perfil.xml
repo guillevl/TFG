@@ -10,27 +10,12 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnEditarPerfil"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="7dp"
-                android:backgroundTint="@color/white"
-                android:text="Editar"
-                android:textColor="@color/azul"
-                android:textSize="14dp"
-                app:cornerRadius="13dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/imgPosterPerfil"
@@ -245,37 +230,64 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <LinearLayout
-                android:id="@+id/linearLayout"
+
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabPrincipal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView7">
+                android:clickable="true"
+                android:src="@drawable/settings"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="20dp"
+                android:focusable="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnCerrarSesion"
-                    android:layout_width="180dp"
-                    android:layout_height="50dp"
-                    android:backgroundTint="@color/white"
-                    android:text="Cerrar sesion"
-                    android:textColor="@color/rojo"
-                    android:textSize="14dp"
-                    app:cornerRadius="13dp" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabEliminarUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="invisible"
+                android:backgroundTint="@color/rojo"
+                app:tint="@color/white"
+                android:src="@drawable/eliminar_cuenta"
+                app:layout_constraintBottom_toTopOf="@+id/fabPrincipal"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnEliminarCuenta"
-                    android:layout_width="180dp"
-                    android:layout_height="50dp"
-                    android:backgroundTint="@color/rojo"
-                    android:text="Eliminar cuenta"
-                    android:textColor="@color/white"
-                    android:textSize="14dp"
-                    app:cornerRadius="13dp" />
-            </LinearLayout>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabCerrarSesion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="5dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="invisible"
+                android:backgroundTint="@color/white"
+                android:src="@drawable/logout"
+                app:tint="@color/rojo"
+                app:layout_constraintBottom_toTopOf="@+id/fabEliminarUser"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabEditarPerfil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="5dp"
+                android:clickable="true"
+                android:visibility="invisible"
+                android:backgroundTint="@color/white"
+                app:tint="@color/azul"
+                android:focusable="true"
+                android:src="@drawable/edit"
+                app:layout_constraintBottom_toTopOf="@+id/fabCerrarSesion"
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

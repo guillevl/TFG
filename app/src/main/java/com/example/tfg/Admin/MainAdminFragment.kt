@@ -1,5 +1,6 @@
 package com.example.tfg.Admin
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -31,12 +32,19 @@ class MainAdminFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_main_admin, container, false)
     }
+    override fun onResume() {
+        super.onResume()
+        activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationViewAdmin)?.isVisible =
+            true
+        activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.isVisible =
+            false
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.isVisible = false
-        var mainActivity = activity as MainActivity
-        mainActivity.setupKeyboardVisibilityListener2()
+        activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationViewAdmin)?.isVisible = true
+
         var titular = ""
         ApiRest.initService()
         getEventsNotFinished(view, titular)
@@ -60,6 +68,11 @@ class MainAdminFragment : Fragment() {
                 return false
             }
         })
+        val sharedPreferences =
+            requireContext().getSharedPreferences("login", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putInt("userID", 0)
+        editor.apply()
     }
 
     private fun getEventsNotFinished(view: View, titu: String) {

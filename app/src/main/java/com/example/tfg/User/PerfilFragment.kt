@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -21,11 +23,17 @@ import com.example.tfg.R
 import com.example.tfg.api.ApiRest
 import com.example.tfg.api.UserData
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class PerfilFragment : Fragment() {
+    private val rotateOpen: Animation by lazy { AnimationUtils.loadAnimation(context,R.anim.rotate_open_anim) }
+    private val rotateClose: Animation by lazy { AnimationUtils.loadAnimation(context,R.anim.rotate_close_anim) }
+    private val fromBottom: Animation by lazy { AnimationUtils.loadAnimation(context,R.anim.from_bottom_anim) }
+    private val toBottom: Animation by lazy { AnimationUtils.loadAnimation(context,R.anim.to_bottom_anim) }
+    private var clicked = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,14 +63,21 @@ class PerfilFragment : Fragment() {
                 // Acciones a realizar si el usuario presiona el botón "No"
             }
         val alerta = builder.create()
-        view?.findViewById<Button>(R.id.btnEditarPerfil)?.setOnClickListener {
+
+        view?.findViewById<FloatingActionButton>(R.id.fabPrincipal)?.setOnClickListener {
+            onMainButtonClicked()
+        }
+        view?.findViewById<FloatingActionButton>(R.id.fabEditarPerfil)?.setOnClickListener {
+            setVisibility(clicked)
+            setClickable(clicked)
+            clicked = !clicked
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace(R.id.container, EditarPerfilFragment())?.addToBackStack(null)?.commit()
         }
-        view?.findViewById<Button>(R.id.btnEliminarCuenta)?.setOnClickListener {
-            alerta.show()
-        }
-        view?.findViewById<Button>(R.id.btnCerrarSesion)?.setOnClickListener {
+        view?.findViewById<FloatingActionButton>(R.id.fabCerrarSesion)?.setOnClickListener {
+            setVisibility(clicked)
+            setClickable(clicked)
+            clicked = !clicked
             val sharedPreferences =
                 requireContext().getSharedPreferences("login", Context.MODE_PRIVATE)
             val editor = sharedPreferences.edit()
@@ -71,7 +86,59 @@ class PerfilFragment : Fragment() {
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace(R.id.container, LoginFragment())?.commit()
         }
+        view?.findViewById<FloatingActionButton>(R.id.fabEliminarUser)?.setOnClickListener {
+            setVisibility(clicked)
+            setClickable(clicked)
+            clicked = !clicked
+            alerta.show()
+        }
+
     }
+
+    private fun onMainButtonClicked() {
+        setVisibility(clicked)
+        setAnimation(clicked)
+        setClickable(clicked)
+        clicked = !clicked
+    }
+
+    private fun setAnimation(clicked:Boolean) {
+        if (!clicked){
+            view?.findViewById<FloatingActionButton>(R.id.fabEditarPerfil)?.startAnimation(fromBottom)
+            view?.findViewById<FloatingActionButton>(R.id.fabCerrarSesion)?.startAnimation(fromBottom)
+            view?.findViewById<FloatingActionButton>(R.id.fabEliminarUser)?.startAnimation(fromBottom)
+            view?.findViewById<FloatingActionButton>(R.id.fabPrincipal)?.startAnimation(rotateOpen)
+        }else{
+            view?.findViewById<FloatingActionButton>(R.id.fabEditarPerfil)?.startAnimation(toBottom)
+            view?.findViewById<FloatingActionButton>(R.id.fabCerrarSesion)?.startAnimation(toBottom)
+            view?.findViewById<FloatingActionButton>(R.id.fabEliminarUser)?.startAnimation(toBottom)
+            view?.findViewById<FloatingActionButton>(R.id.fabPrincipal)?.startAnimation(rotateClose)
+        }
+    }
+
+    private fun setVisibility(clicked:Boolean) {
+        if (!clicked){
+            view?.findViewById<FloatingActionButton>(R.id.fabEditarPerfil)?.visibility = View.VISIBLE
+            view?.findViewById<FloatingActionButton>(R.id.fabCerrarSesion)?.visibility = View.VISIBLE
+            view?.findViewById<FloatingActionButton>(R.id.fabEliminarUser)?.visibility = View.VISIBLE
+        }else{
+            view?.findViewById<FloatingActionButton>(R.id.fabEditarPerfil)?.visibility = View.INVISIBLE
+            view?.findViewById<FloatingActionButton>(R.id.fabCerrarSesion)?.visibility = View.INVISIBLE
+            view?.findViewById<FloatingActionButton>(R.id.fabEliminarUser)?.visibility = View.INVISIBLE
+        }
+    }
+    private fun setClickable(clicked: Boolean){
+        if (!clicked){
+            view?.findViewById<FloatingActionButton>(R.id.fabEditarPerfil)?.isClickable = true
+            view?.findViewById<FloatingActionButton>(R.id.fabCerrarSesion)?.isClickable = true
+            view?.findViewById<FloatingActionButton>(R.id.fabEliminarUser)?.isClickable = true
+        }else{
+            view?.findViewById<FloatingActionButton>(R.id.fabEditarPerfil)?.isClickable = false
+            view?.findViewById<FloatingActionButton>(R.id.fabCerrarSesion)?.isClickable = false
+            view?.findViewById<FloatingActionButton>(R.id.fabEliminarUser)?.isClickable = false
+        }
+    }
+
     private fun getUser(id: String,view: View) {
         val call = ApiRest.service.getUserById(id)
         call.enqueue(object: Callback<UserData> {

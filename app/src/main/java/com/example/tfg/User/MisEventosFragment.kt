@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AlphaAnimation
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -28,6 +29,8 @@ import retrofit2.Response
 
 class MisEventosFragment : Fragment() {
     private lateinit var searchView: SearchView
+    private var currentOption: TextView? = null
+    var isFinished = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,8 +44,7 @@ class MisEventosFragment : Fragment() {
         val card = view.findViewById<CardView>(R.id.cadviewEvento)
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationViewAdmin)?.isVisible =
             false
-        var mainActivity = activity as MainActivity
-        mainActivity.setupKeyboardVisibilityListener()
+
         val sharedPreferencesGet =
             requireContext().getSharedPreferences("login", Context.MODE_PRIVATE)
         val getID = sharedPreferencesGet.getInt("userID", 0)
@@ -71,9 +73,49 @@ class MisEventosFragment : Fragment() {
                 return false
             }
         })
+        var OptionActivos = view.findViewById<TextView>(R.id.OptionFinish)
+        var OptionFinish = view.findViewById<TextView>(R.id.OptionActivos)
+        currentOption = if (isFinished) {
+            OptionActivos
+        } else {
+            OptionFinish
+        }
+        selectOption(currentOption!!) // Inicializar con la primera opción
+        OptionActivos.setOnClickListener {
+            onOptionClicked(it)
+            isFinished = true
+            getMisEventos(view,getID.toString(),titular)
+        }
+
+        OptionFinish.setOnClickListener {
+            onOptionClicked(it)
+            isFinished = false
+            getMisEventos(view,getID.toString(),titular)
+        }
+    }
+    fun onOptionClicked(view: View) {
+        val option = view as TextView
+        if (option != currentOption) {
+            deselectOption(currentOption!!)
+            selectOption(option)
+            currentOption = option
+        }
+    }
+    private fun selectOption(textView: TextView) {
+        textView.setTextColor(resources.getColor(R.color.black))
+        textView.setBackgroundColor(resources.getColor(R.color.verde_fondo_ssv))
+        val fadeInAnimation = AlphaAnimation(0f, 1f)
+        fadeInAnimation.duration = 500
+        textView.startAnimation(fadeInAnimation)
+    }
+
+    private fun deselectOption(textView: TextView) {
+        textView.setTextColor(resources.getColor(R.color.griss))
+        textView.setBackgroundColor(resources.getColor(R.color.gris_verd))
+
     }
     private fun getMisEventos(view: View,id: String,titu:String) {
-        val call = ApiRest.service.getMisEventos(id,"*",titu,titu,titu,titu,titu)
+        val call = ApiRest.service.getMisEventos(id,"*",titu,titu,titu,titu,titu,isFinished)
         call.enqueue(object : Callback<EventsNotFinishedResponse> {
             override fun onResponse(
                 call: Call<EventsNotFinishedResponse>,

@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="verde_pelota">#86EF00</color>
     <color name="verde_fondo">#1B2910</color>
+    <color name="verde_fondo_ssv">#66BF23</color>
     <color name="verde_fondo_cartas">#0F1809</color>
     <color name="azul">#3DA2FF</color>
     <color name="verde_bottom">#304C1B</color>
@@ -22,5 +23,6 @@
     <color name="transparente3">#A17A7A7A</color>
     <color name="oro">#FFD700</color>
     <color name="plata">#C0C0C0</color>
+    <color name="gris_verd">#666666</color>
     <color name="bronce">#804A00</color>
 </resources>

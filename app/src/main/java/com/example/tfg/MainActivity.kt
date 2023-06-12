@@ -1,11 +1,13 @@
 package com.example.tfg
 
+import android.content.Context
 import android.graphics.Color
 import android.graphics.Rect
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.ViewTreeObserver
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import com.example.tfg.Admin.CrearEventoFragment
 import com.example.tfg.Admin.ListaUsersFragment
@@ -81,7 +83,7 @@ class MainActivity : AppCompatActivity() {
                     isKeyboardOpen = isOpen
                     if (isKeyboardOpen) {
                         // El teclado está abierto, ocultar el BottomNavigationView
-                        bottomNavigationView.visibility = View.GONE
+                        bottomNavigationView.visibility = View.INVISIBLE
                     } else {
                         // El teclado está cerrado, mostrar el BottomNavigationView
                         bottomNavigationView.visibility = View.VISIBLE
@@ -111,7 +113,7 @@ class MainActivity : AppCompatActivity() {
                     isKeyboardOpen = isOpen
                     if (isKeyboardOpen) {
                         // El teclado está abierto, ocultar el BottomNavigationView
-                        bottomNavigationView.visibility = View.GONE
+                        bottomNavigationView.visibility = View.INVISIBLE
                     } else {
                         // El teclado está cerrado, mostrar el BottomNavigationView
                         bottomNavigationView.visibility = View.VISIBLE

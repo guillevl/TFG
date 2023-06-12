@@ -64,7 +64,9 @@ interface ApiService {
         @Query("filters[\$or][1][fecha_evento][\$containsi]")fech:String,
         @Query("filters[\$or][2][sexo][\$containsi]")sex:String,
         @Query("filters[\$or][3][nivel][\$containsi]")nivl:String,
-        @Query("filters[\$or][4][hora_inicio][\$containsi]")hora:String
+        @Query("filters[\$or][4][hora_inicio][\$containsi]")hora:String,
+        @Query("filters[isFinished]") isFinished: Boolean
+
     ): Call<EventsNotFinishedResponse>
 
     //Sacar un evento

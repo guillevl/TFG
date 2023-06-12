@@ -59,8 +59,6 @@ class CrearEventoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var mainActivity = activity as MainActivity
-        mainActivity.setupKeyboardVisibilityListener2()
         ApiRest.initService()
         view.findViewById<EditText>(R.id.etFechaEvento).setOnClickListener() {
             showDatePickerDialog()

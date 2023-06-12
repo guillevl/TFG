@@ -29,13 +29,12 @@ class MainUsrFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_main_usr, container, false)
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationViewAdmin)?.isVisible =
             false
-        var mainActivity = activity as MainActivity
-        mainActivity.setupKeyboardVisibilityListener()
+        activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.isVisible =
+            true
         var titular = ""
         ApiRest.initService()
         getEventsNotFinished(view, titular)
