@@ -53,24 +53,24 @@ class DetalleEventoAdminFrgment : Fragment() {
         builder.setItems(opciones) { dialog, which ->
             when (which) {
                 0 -> {
-                    user.points = user.points + 4
+                    user.points = user.points + 40
                     updateUser(user.id.toString(), user)
-                    Toast.makeText(context, "Ha recibido 4 puntos", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Ha recibido 40 puntos", Toast.LENGTH_SHORT).show()
                 }
                 1 -> {
-                    user.points = user.points + 3
+                    user.points = user.points + 30
                     updateUser(user.id.toString(), user)
-                    Toast.makeText(context, "Ha recibido 3 puntos", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Ha recibido 30 puntos", Toast.LENGTH_SHORT).show()
                 }
                 2 -> {
-                    user.points = user.points + 2
+                    user.points = user.points + 20
                     updateUser(user.id.toString(), user)
-                    Toast.makeText(context, "Ha recibido 2 puntos", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Ha recibido 20 puntos", Toast.LENGTH_SHORT).show()
                 }
                 3 -> {
-                    user.points = user.points + 1
+                    user.points = user.points + 10
                     updateUser(eventIds!!, user)
-                    Toast.makeText(context, "Ha recibido 1 punto", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Ha recibido 10 punto", Toast.LENGTH_SHORT).show()
                 }
             }
         }

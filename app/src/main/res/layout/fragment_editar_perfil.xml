@@ -24,28 +24,6 @@
                 android:scaleType="centerCrop"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:layout_width="440dp"
-                android:layout_height="150dp"
-                android:src="@color/transparente3"
-                app:layout_constraintBottom_toBottomOf="@+id/imgPoster"
-                app:layout_constraintEnd_toEndOf="@+id/imgPoster"
-                app:layout_constraintStart_toStartOf="@+id/imgPoster"
-                app:layout_constraintTop_toTopOf="parent"></ImageView>
-
-            <ImageView
-                android:id="@+id/btnFotoPoster"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@color/transparente2"
-                android:padding="5dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/camera_add_photo_svgrepo_com"
-                app:layout_constraintBottom_toBottomOf="@+id/imgPoster"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></ImageView>
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
                 android:layout_width="130dp"

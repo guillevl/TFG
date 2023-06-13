@@ -18,6 +18,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.example.tfg.LoginFragment
+import com.example.tfg.MainActivity
 import com.example.tfg.PantallaInicioFragment
 import com.example.tfg.R
 import com.example.tfg.api.ApiRest
@@ -45,6 +46,8 @@ class PerfilFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.isVisible = true
+        val mainActivity = activity as MainActivity
+        mainActivity.setStatusBarColor("#000000")
         //cogemos id usuario
         val sharedPreferencesGet =
             requireContext().getSharedPreferences("login", Context.MODE_PRIVATE)
@@ -160,6 +163,9 @@ class PerfilFragment : Fragment() {
                     Glide.with(view)
                         .load(body.foto_perfil)
                         .into(view.findViewById<ImageView>(R.id.imgPerfil))
+                    Glide.with(view)
+                        .load(body.foto_poster)
+                        .into(view.findViewById<ImageView>(R.id.imgPosterPerfil))
                     Log.i("EditProfileFragment", body.toString())
 
                 } else {

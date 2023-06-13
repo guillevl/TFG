@@ -24,6 +24,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
+import com.example.tfg.MainActivity
 import com.example.tfg.R
 import com.example.tfg.RegistroFragment
 import com.example.tfg.api.ApiRest
@@ -71,6 +72,8 @@ class EditarPerfilFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.isVisible = false
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationViewAdmin)?.isVisible = false
+        val mainActivity = activity as MainActivity
+        mainActivity.setStatusBarColor("#000000")
         //coger dato de usuario loggeado
         val sharedPreferencesGet =
             requireContext().getSharedPreferences("login", Context.MODE_PRIVATE)
@@ -94,8 +97,6 @@ class EditarPerfilFragment : Fragment() {
                 if (imgURLFirebase != ""){
                     user.foto_perfil = imgURLFirebase
                 }
-
-                user.foto_poster = imgURLFirebasePoster
                 updateUser(user.id.toString(), user)
                 activity?.supportFragmentManager?.beginTransaction()
                     ?.replace(R.id.container, PerfilFragment())?.addToBackStack(null)?.commit()
@@ -127,9 +128,6 @@ class EditarPerfilFragment : Fragment() {
         view.findViewById<ImageView>(R.id.btnFotoPerfil).setOnClickListener {
             alerta2.show()
         }
-        view.findViewById<ImageView>(R.id.btnFotoPoster).setOnClickListener {
-            alerta2.show()
-        }
     }
 
     /**override fun onStop() {
@@ -159,6 +157,9 @@ class EditarPerfilFragment : Fragment() {
                     Glide.with(view)
                         .load(user.foto_perfil)
                         .into(imgProfile)
+                    Glide.with(view)
+                        .load(user.foto_poster)
+                        .into(imgProfilePoster)
 
                 } else {
                     Log.e("EditProfileFragment", response.errorBody()?.string() ?: "Error")

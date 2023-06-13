@@ -107,6 +107,7 @@ class CrearEventoFragment : Fragment() {
                 if (imgURLFirebase != "") {
                     foto_evento = imgURLFirebase
                 }
+
                 crearEvento(foto_evento, titulo_evento, nivel , sexo, hora_inicio, hora_fin, fecha_evento)
                 activity?.supportFragmentManager?.beginTransaction()
                     ?.replace(R.id.container, CrearEventoFragment())?.addToBackStack(null)?.commit()
