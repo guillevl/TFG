@@ -3,6 +3,7 @@ package com.example.tfg.Admin
 import android.Manifest
 import android.app.AlertDialog
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.webkit.MimeTypeMap
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
@@ -20,6 +22,7 @@ import com.example.tfg.*
 import com.example.tfg.User.PerfilFragment
 import com.example.tfg.api.ApiRest
 import com.example.tfg.api.EventsResponse
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
 import retrofit2.Call
@@ -90,10 +93,12 @@ class CrearEventoFragment : Fragment() {
         builder.setTitle("Crear Evento")
             .setMessage("¿Desea crear el evento?")
             .setPositiveButton("Sí") { dialog, which ->
-                var titulo_evento = view?.findViewById<TextView>(R.id.etTituloEvento)?.text.toString()
+                var titulo_evento =
+                    view?.findViewById<TextView>(R.id.etTituloEvento)?.text.toString()
                 var nivel = view?.findViewById<TextView>(R.id.etNivelEvento)?.text.toString()
-                var sexo:String = ""
-                var hora_inicio = view?.findViewById<TextView>(R.id.etHoraInicioEvento)?.text.toString()
+                var sexo: String = ""
+                var hora_inicio =
+                    view?.findViewById<TextView>(R.id.etHoraInicioEvento)?.text.toString()
                 var hora_fin = view?.findViewById<TextView>(R.id.etHoraFinEvento)?.text.toString()
                 var fecha_evento = view?.findViewById<TextView>(R.id.etFechaEvento)?.text.toString()
                 var foto_evento: String = ""
@@ -107,11 +112,28 @@ class CrearEventoFragment : Fragment() {
                 if (imgURLFirebase != "") {
                     foto_evento = imgURLFirebase
                 }
+                if (foto_evento == "" || titulo_evento == "" || nivel == "" || sexo == "" || hora_fin == "" || hora_inicio == "" || fecha_evento == "") {
+                    Snackbar.make(view, "Rellene todos los campos", Snackbar.LENGTH_SHORT)
+                        .setBackgroundTint(
+                            Color.parseColor("#FFFFFF")
+                        ).setTextColor(Color.parseColor("#FF0000")).show()
+                    applyShakeEffect()
+                } else {
+                    crearEvento(
+                        foto_evento,
+                        titulo_evento,
+                        nivel,
+                        sexo,
+                        hora_inicio,
+                        hora_fin,
+                        fecha_evento
+                    )
+                    activity?.supportFragmentManager?.beginTransaction()
+                        ?.replace(R.id.container, CrearEventoFragment())?.addToBackStack(null)
+                        ?.commit()
+                    Toast.makeText(context, "Evento creado", Toast.LENGTH_SHORT).show()
+                }
 
-                crearEvento(foto_evento, titulo_evento, nivel , sexo, hora_inicio, hora_fin, fecha_evento)
-                activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.container, CrearEventoFragment())?.addToBackStack(null)?.commit()
-                Toast.makeText(context, "Evento creado", Toast.LENGTH_SHORT).show()
             }
             .setNegativeButton("No") { dialog, which ->
                 // Acciones a realizar si el usuario presiona el botón "No"
@@ -120,6 +142,11 @@ class CrearEventoFragment : Fragment() {
         view?.findViewById<Button>(R.id.btnCrearEvento)?.setOnClickListener {
             alerta.show()
         }
+    }
+
+    private fun applyShakeEffect() {
+        val shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake)
+        view?.startAnimation(shakeAnimation)
     }
 
     private fun showDatePickerDialog() {

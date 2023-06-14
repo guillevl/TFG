@@ -81,11 +81,18 @@
                     android:textSize="20dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/tvMensageError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Usuario o contraseña incorrectos"
+                android:visibility="invisible"
+                android:textColor="@color/rojo_carta"
+                android:textSize="18dp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal">
 

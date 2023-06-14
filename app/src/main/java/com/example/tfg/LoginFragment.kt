@@ -6,8 +6,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -104,8 +106,10 @@ class LoginFragment : Fragment() {
                     }
 
                 } else {
-
+                    applyShakeEffect()
+                    view?.findViewById<TextView>(R.id.tvMensageError)?.isVisible = true
                     Log.e(TAG, response.errorBody()?.string() ?: "Error")
+
                 }
             }
 
@@ -114,5 +118,9 @@ class LoginFragment : Fragment() {
             }
 
         })
+    }
+    private fun applyShakeEffect() {
+        val shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake)
+        view?.startAnimation(shakeAnimation)
     }
 }

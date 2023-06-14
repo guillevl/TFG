@@ -181,11 +181,16 @@
                     android:textSize="18dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
-
+            <TextView
+                android:id="@+id/tvMensageError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:textColor="@color/rojo_carta"
+                android:textSize="18dp" />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal">
 
@@ -219,7 +224,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_marginLeft="60dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="60dp"
                 android:backgroundTint="@color/verde_pelota"
                 android:text="Registrarse"
