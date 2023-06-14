@@ -44,7 +44,8 @@ class MisEventosFragment : Fragment() {
         val card = view.findViewById<CardView>(R.id.cadviewEvento)
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationViewAdmin)?.isVisible =
             false
-
+        val mainActivity = activity as MainActivity
+        mainActivity.setStatusBarColor("#1B2910")
         val sharedPreferencesGet =
             requireContext().getSharedPreferences("login", Context.MODE_PRIVATE)
         val getID = sharedPreferencesGet.getInt("userID", 0)

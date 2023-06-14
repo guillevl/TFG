@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.tfg.Admin.ListaUsersAdapter
+import com.example.tfg.MainActivity
 import com.example.tfg.R
 import com.example.tfg.api.ApiRest
 import com.example.tfg.api.UserListResponse
@@ -32,6 +33,8 @@ class RankingFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val mainActivity = activity as MainActivity
+        mainActivity.setStatusBarColor("#1B2910")
         ApiRest.initService()
         getRankingUsers()
 

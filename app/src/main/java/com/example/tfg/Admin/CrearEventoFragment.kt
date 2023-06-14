@@ -62,6 +62,8 @@ class CrearEventoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val mainActivity = activity as MainActivity
+        mainActivity.setStatusBarColor("#000000")
         ApiRest.initService()
         view.findViewById<EditText>(R.id.etFechaEvento).setOnClickListener() {
             showDatePickerDialog()

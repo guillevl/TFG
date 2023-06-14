@@ -19,6 +19,7 @@ import com.example.tfg.api.ApiRest
 import com.example.tfg.api.RegisterData
 import com.example.tfg.api.RegisterResponse
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -132,21 +133,21 @@ class RegistroFragment : Fragment() {
                     activity?.supportFragmentManager?.beginTransaction()
                         ?.replace(R.id.container, MainUsrFragment())?.commit()
                 } else {
-                    if (response.message().toString() == "email must be a valid email") {
+                    val errorBody = response.errorBody()?.string()
+                    val errorJson = JSONObject(errorBody)
+                    val errorObject = errorJson.getJSONObject("error")
+                    val errorMessage = errorObject.getString("message")
+                    if (errorMessage == "email must be a valid email") {
                         applyShakeEffect()
                         view?.findViewById<TextView>(R.id.tvMensageError)?.text =
                             "Formato de email incorrecto"
                         view?.findViewById<TextView>(R.id.tvMensageError)?.isVisible = true
-                    } else if (response.errorBody()
-                            .toString() == "Email or Username are already taken"
-                    ) {
+                    } else if (errorMessage == "Email or Username are already taken") {
                         applyShakeEffect()
                         view?.findViewById<TextView>(R.id.tvMensageError)?.text =
                             "Username o Email ya esta cogido"
                         view?.findViewById<TextView>(R.id.tvMensageError)?.isVisible = true
-                    } else if (response.errorBody()
-                            .toString() == "password must be at least 6 characters"
-                    ) {
+                    } else if (errorMessage == "password must be at least 6 characters") {
                         applyShakeEffect()
                         view?.findViewById<TextView>(R.id.tvMensageError)?.text =
                             "La contraseña debe tener 6 caracteres"

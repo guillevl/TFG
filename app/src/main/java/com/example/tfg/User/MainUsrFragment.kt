@@ -35,6 +35,8 @@ class MainUsrFragment : Fragment() {
             false
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.isVisible =
             true
+        val mainActivity = activity as MainActivity
+        mainActivity.setStatusBarColor("#1B2910")
         var titular = ""
         ApiRest.initService()
         getEventsNotFinished(view, titular)
