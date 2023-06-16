@@ -76,6 +76,8 @@ class LoginFragment : Fragment() {
             var email = view.findViewById<EditText>(R.id.etEmailLogin).text.toString()
             var password = view.findViewById<EditText>(R.id.etPassLogin).text.toString()
             login(email, password)
+            mainActivity.setBottomNavigationSelectedItemAdmin(0)
+            mainActivity.setBottomNavigationSelectedItem(0)
             /**if ((view.findViewById<EditText>(R.id.etEmailLogin).text.toString()) == "hola"){
             activity?.supportFragmentManager?.beginTransaction()
             ?.replace(R.id.container, MainUsrFragment())?.commit()

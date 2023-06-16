@@ -122,4 +122,14 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
+    fun setBottomNavigationSelectedItem(index: Int) {
+        val menuItem =
+            findViewById<BottomNavigationView>(R.id.bottomNavigationView).menu.getItem(index)
+        menuItem.isChecked = true
+    }
+    fun setBottomNavigationSelectedItemAdmin(index: Int) {
+        val menuItem =
+            findViewById<BottomNavigationView>(R.id.bottomNavigationViewAdmin).menu.getItem(index)
+        menuItem.isChecked = true
+    }
 }
