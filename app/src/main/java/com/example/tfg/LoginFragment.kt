@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.EditText
+import android.widget.RadioButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -22,9 +23,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.properties.Delegates
 
 class LoginFragment : Fragment() {
     val TAG = "MainActivity"
+    var isChecked by Delegates.notNull<Boolean>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -46,6 +49,29 @@ class LoginFragment : Fragment() {
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.isVisible = false
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationViewAdmin)?.isVisible =
             false
+        //Radio Button Recuerdame
+        val radioButton = view.findViewById<RadioButton>(R.id.btnRecordarUser)
+        val sharedPreferencesGet =
+            requireContext().getSharedPreferences("remember", Context.MODE_PRIVATE)
+        isChecked = sharedPreferencesGet.getBoolean("isChecked", false)
+        radioButton.isChecked = isChecked
+        if (isChecked) {
+            val sharedPreferencesGet =
+                requireContext().getSharedPreferences("remember", Context.MODE_PRIVATE)
+            var user = sharedPreferencesGet.getString("user", "")
+            var password = sharedPreferencesGet.getString("password", "")
+            view.findViewById<TextView>(R.id.etEmailLogin).text = user
+            view.findViewById<TextView>(R.id.etPassLogin).text = password
+        }
+        radioButton.setOnClickListener {
+            isChecked = !isChecked
+            radioButton.isChecked = isChecked
+            val sharedPreferences =
+                requireContext().getSharedPreferences("remember", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.putBoolean("isChecked", isChecked)
+            editor.apply() // Aplicar los cambios en SharedPreferences
+        }
         view.findViewById<Button>(R.id.btnIrHomeLogin).setOnClickListener {
             var email = view.findViewById<EditText>(R.id.etEmailLogin).text.toString()
             var password = view.findViewById<EditText>(R.id.etPassLogin).text.toString()
@@ -83,6 +109,17 @@ class LoginFragment : Fragment() {
                 // maneja la respuesta exitosa aquí
                 val body = response.body()
                 if (response.isSuccessful && body != null) {
+                    if (isChecked) {
+                        val sharedPreferencesGet =
+                            requireContext().getSharedPreferences("remember", Context.MODE_PRIVATE)
+                        val user = view?.findViewById<TextView>(R.id.etEmailLogin)?.text.toString()
+                        val password = view?.findViewById<TextView>(R.id.etPassLogin)?.text.toString()
+                        val editor = sharedPreferencesGet.edit()
+                        editor.putBoolean("isChecked", isChecked)
+                        editor.putString("user", user)
+                        editor.putString("password", password)
+                        editor.apply()
+                    }
                     if (usernameOrEmail==("admin@gmail.com")){
                         val userId = body.user.id
                         //Guardamos el id y el token en local

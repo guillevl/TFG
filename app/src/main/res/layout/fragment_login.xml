@@ -20,18 +20,23 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:gravity="center_horizontal"
                 android:text="Inicio de Sesion"
                 android:textColor="@color/white"
                 android:textSize="30sp"
                 android:textStyle="bold" />
 
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/imagen_logo"/>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="330dp"
                 android:layout_marginRight="10dp"
                 android:textColorHint="@color/black"
                 app:boxCornerRadiusBottomEnd="16dp"
@@ -81,6 +86,14 @@
                     android:textSize="20dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
+            <RadioButton
+                android:id="@+id/btnRecordarUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-100dp"
+                android:text="Recordar usuario"
+                android:textColor="@color/white"
+                android:textSize="17dp" />
             <TextView
                 android:id="@+id/tvMensageError"
                 android:layout_width="wrap_content"
@@ -125,7 +138,7 @@
                 android:id="@+id/btnIrHomeLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="15dp"
                 android:textColor="@color/white"
                 android:backgroundTint="@color/verde_pelota"
                 android:text="Iniciar Sesion"

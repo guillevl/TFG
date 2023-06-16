@@ -91,6 +91,7 @@
         android:id="@+id/rvMisEventosPrincipal"
         android:layout_width="match_parent"
         android:layout_height="550dp"
+        android:paddingBottom="18dp"
         android:background="@color/verde_fondo"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
