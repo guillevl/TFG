@@ -51,7 +51,7 @@ class MisEventosFragment : Fragment() {
         val getID = sharedPreferencesGet.getInt("userID", 0)
         ApiRest.initService()
         var titular = ""
-        getMisEventos(view,getID.toString(),titular)
+        getMisEventos(view, getID.toString(), titular)
         searchView = view.findViewById(R.id.svSearchMisEventos)
 
         // Configurar el listener de búsqueda
@@ -60,7 +60,7 @@ class MisEventosFragment : Fragment() {
                 // Realizar la búsqueda aquí
                 if (!query.isNullOrEmpty()) {
                     titular = query
-                    getMisEventos(view,getID.toString(),titular)
+                    getMisEventos(view, getID.toString(), titular)
                 }
                 return false
             }
@@ -69,13 +69,14 @@ class MisEventosFragment : Fragment() {
                 // Actualizar la búsqueda mientras se escribe
 
                 titular = newText!!
-                getMisEventos(view,getID.toString(),titular)
+                getMisEventos(view, getID.toString(), titular)
 
                 return false
             }
         })
-        var OptionActivos = view.findViewById<TextView>(R.id.OptionFinish)
+        var OptionActivos = view.findViewById<TextView>(R.id.OptionFinish)//guardas los elementos
         var OptionFinish = view.findViewById<TextView>(R.id.OptionActivos)
+        //carga la seleccion por defecto en la variable
         currentOption = if (isFinished) {
             OptionActivos
         } else {
@@ -85,23 +86,27 @@ class MisEventosFragment : Fragment() {
         OptionActivos.setOnClickListener {
             onOptionClicked(it)
             isFinished = true
-            getMisEventos(view,getID.toString(),titular)
+            getMisEventos(view, getID.toString(), titular)
         }
 
         OptionFinish.setOnClickListener {
             onOptionClicked(it)
             isFinished = false
-            getMisEventos(view,getID.toString(),titular)
+            getMisEventos(view, getID.toString(), titular)
         }
     }
+
+    //gestiona los cambios de ambos textviews
     fun onOptionClicked(view: View) {
         val option = view as TextView
         if (option != currentOption) {
-            deselectOption(currentOption!!)
-            selectOption(option)
+            deselectOption(currentOption!!) //deselecciona
+            selectOption(option)//selecciona
             currentOption = option
         }
     }
+
+    //cambia los estilos del textview que has seleccionado
     private fun selectOption(textView: TextView) {
         textView.setTextColor(resources.getColor(R.color.black))
         textView.setBackgroundColor(resources.getColor(R.color.verde_fondo_ssv))
@@ -110,13 +115,15 @@ class MisEventosFragment : Fragment() {
         textView.startAnimation(fadeInAnimation)
     }
 
+    //cambia los estilos del textview que has deseleccionado
     private fun deselectOption(textView: TextView) {
         textView.setTextColor(resources.getColor(R.color.griss))
         textView.setBackgroundColor(resources.getColor(R.color.gris_verd))
 
     }
-    private fun getMisEventos(view: View,id: String,titu:String) {
-        val call = ApiRest.service.getMisEventos(id,"*",titu,titu,titu,titu,titu,isFinished)
+
+    private fun getMisEventos(view: View, id: String, titu: String) {
+        val call = ApiRest.service.getMisEventos(id, "*", titu, titu, titu, titu, titu, isFinished)
         call.enqueue(object : Callback<EventsNotFinishedResponse> {
             override fun onResponse(
                 call: Call<EventsNotFinishedResponse>,
@@ -128,11 +135,11 @@ class MisEventosFragment : Fragment() {
                     var rvUserInfo = view.findViewById<RecyclerView>(R.id.rvMisEventosPrincipal)
                     rvUserInfo?.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                    rvUserInfo?.adapter = MisEventsAdapter(evtsNot) {eventId ->
+                    rvUserInfo?.adapter = MisEventsAdapter(evtsNot) { eventId ->
                         activity?.let {
                             val fragment = DetalleEventoMisEventoFragment()
-                            fragment.arguments= Bundle().apply {
-                                putString("eventIds",eventId.id.toString())
+                            fragment.arguments = Bundle().apply {
+                                putString("eventIds", eventId.id.toString())
                             }
                             it.supportFragmentManager.beginTransaction()
                                 .replace(R.id.container, fragment)?.addToBackStack(null)?.commit()

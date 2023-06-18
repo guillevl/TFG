@@ -189,9 +189,11 @@ class EditarPerfilFragment : Fragment() {
             }
         })
     }
+    //verificamos si los permisos se han otorgado correctamente
     fun permissionsGranted(): Boolean = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(requireContext(), it) == PackageManager.PERMISSION_GRANTED
     }
+    //verifica los premisos llamando al de arriba y sino los tiene se solicitan
     private fun checkPermissions() {
         if (!permissionsGranted()) {
             ActivityCompat.requestPermissions(
@@ -199,16 +201,20 @@ class EditarPerfilFragment : Fragment() {
             )
         }
     }
+    //coge la imagen de la galeria
     val getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         imgProfile.setImageURI(uri)
         uploadIMG(uri)
     }
+    //carga una imagen a el almacenamiento de firebase
     private fun uploadIMG(file: Uri?) {
         file?.let { //Comprueba de forma boleana si es nulo
+            //crea una referencia a la ubicación en Firebase Storage donde se almacenará la imagen
             val extension = getFileExtension(file)
             val imageRef =
                 FirebaseStorage.getInstance().reference.child("notes/images/${UUID.randomUUID()}.$extension")
             val riversRef = imageRef.child("images/${file.lastPathSegment}")
+            //carga con la referencia y se manejan los eventos de éxito y falla de la tarea
             val uploadTask = riversRef.putFile(file)
 
             uploadTask.addOnFailureListener {
@@ -219,6 +225,7 @@ class EditarPerfilFragment : Fragment() {
 
         }
     }
+    //obtener la URL de descarga de la imagen cargada en Firebase Storage
     private fun getUrl(taskSnapshot: UploadTask.TaskSnapshot?) {
         taskSnapshot?.storage?.downloadUrl?.addOnSuccessListener {
             imgURLFirebase = it.toString()
@@ -226,11 +233,13 @@ class EditarPerfilFragment : Fragment() {
             Log.e("getUrl", it.toString())
         }
     }
+    //obtener la extensión del archivo a partir de una URI
     fun getFileExtension(uri: Uri): String? {
         val contentResolver = requireContext().contentResolver
         val mime = MimeTypeMap.getSingleton()
         return mime.getExtensionFromMimeType(contentResolver?.getType(uri)) ?: "png"
     }
+    //obtener la URI de un archivo temporal en la caché de la aplicación para la camara
     private fun getTmpFileUri(): Uri {
         val tmpFile =
             File.createTempFile("tmp_image_file", ".png", requireContext().cacheDir).apply {

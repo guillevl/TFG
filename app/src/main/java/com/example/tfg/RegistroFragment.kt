@@ -72,24 +72,13 @@ class RegistroFragment : Fragment() {
         }
     }
 
-    fun isEmailValid(email: String): Boolean {
-        val pattern = Patterns.EMAIL_ADDRESS
-        return pattern.matcher(email).matches()
-    }
-
-    fun isPasswordValid(password: String): Boolean {
-        // Patrón para al menos una letra mayúscula, una minúscula y un caracter especial
-        val pattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\$%^&+=])(?=\\S+\$).{7,}$"
-        val compiledPattern = Pattern.compile(pattern)
-        val matcher = compiledPattern.matcher(password)
-        return matcher.matches()
-    }
-
+    //abre el calendario y se crea una instancia de datePickerFragment
     private fun showDatePickerDialog() {
         val datePicker = DatePickerFragment { day, month, year -> onDateSelected(day, month, year) }
         getActivity()?.let { datePicker.show(it.getSupportFragmentManager(), "datePicker") }
     }
 
+    //recoge los datos que le pasamos en el showdatepikerdialog y los muestra en editText que queremos
     private fun onDateSelected(day: Int, month: Int, year: Int) {
         view?.findViewById<EditText>(R.id.etDate)
             ?.setText("$day/$month/$year")
@@ -163,6 +152,7 @@ class RegistroFragment : Fragment() {
         })
     }
 
+    //aplica el efecto de shake de pantalla
     private fun applyShakeEffect() {
         val shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake)
         view?.startAnimation(shakeAnimation)

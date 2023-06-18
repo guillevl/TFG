@@ -8,9 +8,11 @@ import android.os.Bundle
 import android.widget.DatePicker
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
-
+//subcalse de DialogFragment e implenta la interfaz de DatePickerDialog
+//toma paramentros de listener que es de tipo string utilizado para pasar la fecha seleccionada
 class DatePickerFragment(val listener: (day: Int, month: Int, year: Int) -> Unit) :
     DialogFragment(), DatePickerDialog.OnDateSetListener {
+    //recibe  por paramentros la hora y los minutos que se han seleccionado en el datepicker
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
         listener(day, month, year)
     }

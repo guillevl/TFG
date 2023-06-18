@@ -48,11 +48,12 @@ class MainActivity : AppCompatActivity() {
             true
         }
     }
+    //cambiar color de la parte de arriba de la pantalla
     fun setStatusBarColor(color: String){
         val colorInt: Int = Color.parseColor(color)
         window.statusBarColor = colorInt
     }
-
+//cambiar de fragment
     private fun replaceFragment(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
@@ -62,66 +63,7 @@ class MainActivity : AppCompatActivity() {
     fun goToFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
     }
-    //Ocultar bottomnavigation al abrir el teclado
-    fun setupKeyboardVisibilityListener() {
-        val rootView = findViewById<View>(android.R.id.content)
-        val bottomNavigationView=findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        rootView.viewTreeObserver.addOnGlobalLayoutListener(object :
-            ViewTreeObserver.OnGlobalLayoutListener {
-            private val windowVisibleDisplayFrame = Rect()
-            private var isKeyboardOpen = false
-
-            override fun onGlobalLayout() {
-                rootView.getWindowVisibleDisplayFrame(windowVisibleDisplayFrame)
-                val screenHeight = rootView.rootView.height
-
-                val heightDiff = screenHeight - windowVisibleDisplayFrame.bottom
-                val isOpen =
-                    heightDiff > screenHeight * 0.15 // Se considera que el teclado está abierto si la diferencia de altura es superior al 15% de la altura de la pantalla
-
-                if (isOpen != isKeyboardOpen) {
-                    isKeyboardOpen = isOpen
-                    if (isKeyboardOpen) {
-                        // El teclado está abierto, ocultar el BottomNavigationView
-                        bottomNavigationView.visibility = View.INVISIBLE
-                    } else {
-                        // El teclado está cerrado, mostrar el BottomNavigationView
-                        bottomNavigationView.visibility = View.VISIBLE
-                    }
-                }
-            }
-        })
-    }
-    //Ocultar bottomnavigation al abrir el teclado
-    fun setupKeyboardVisibilityListener2() {
-        val rootView = findViewById<View>(android.R.id.content)
-        val bottomNavigationView=findViewById<BottomNavigationView>(R.id.bottomNavigationViewAdmin)
-        rootView.viewTreeObserver.addOnGlobalLayoutListener(object :
-            ViewTreeObserver.OnGlobalLayoutListener {
-            private val windowVisibleDisplayFrame = Rect()
-            private var isKeyboardOpen = false
-
-            override fun onGlobalLayout() {
-                rootView.getWindowVisibleDisplayFrame(windowVisibleDisplayFrame)
-                val screenHeight = rootView.rootView.height
-
-                val heightDiff = screenHeight - windowVisibleDisplayFrame.bottom
-                val isOpen =
-                    heightDiff > screenHeight * 0.15 // Se considera que el teclado está abierto si la diferencia de altura es superior al 15% de la altura de la pantalla
-
-                if (isOpen != isKeyboardOpen) {
-                    isKeyboardOpen = isOpen
-                    if (isKeyboardOpen) {
-                        // El teclado está abierto, ocultar el BottomNavigationView
-                        bottomNavigationView.visibility = View.INVISIBLE
-                    } else {
-                        // El teclado está cerrado, mostrar el BottomNavigationView
-                        bottomNavigationView.visibility = View.VISIBLE
-                    }
-                }
-            }
-        })
-    }
+    //cambiar el icono seleccionado del menu de abajo
     fun setBottomNavigationSelectedItem(index: Int) {
         val menuItem =
             findViewById<BottomNavigationView>(R.id.bottomNavigationView).menu.getItem(index)

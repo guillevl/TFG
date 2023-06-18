@@ -10,9 +10,11 @@ import android.widget.DatePicker
 import android.widget.TimePicker
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
-
+//subcalse de DialogFragment e implenta la interfaz de timepickerdialog
+//toma paramentros de listener que es de tipo string utilizado para pasar la hora seleccionada
 class TimePickerFragment(val listener: (String) -> Unit) :
     DialogFragment(), TimePickerDialog.OnTimeSetListener {
+    //recibe  por paramentros la hora y los minutos que se han seleccionado en el timepiker
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
         listener("$hourOfDay:$minute")
     }
