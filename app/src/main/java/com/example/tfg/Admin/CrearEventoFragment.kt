@@ -130,10 +130,6 @@ class CrearEventoFragment : Fragment() {
                         hora_fin,
                         fecha_evento
                     )
-                    activity?.supportFragmentManager?.beginTransaction()
-                        ?.replace(R.id.container, CrearEventoFragment())?.addToBackStack(null)
-                        ?.commit()
-                    Toast.makeText(context, "Evento creado", Toast.LENGTH_SHORT).show()
                 }
 
             }
@@ -208,7 +204,7 @@ class CrearEventoFragment : Fragment() {
                     var registroResponse = response.body()
                     print(registroResponse)
                     activity?.supportFragmentManager?.beginTransaction()
-                        ?.replace(R.id.container, MainAdminFragment())?.commit()
+                        ?.replace(R.id.container, CrearEventoFragment())?.commit()
                     Toast.makeText(context, "Evento creado", Toast.LENGTH_SHORT).show()
                 } else {
                     Log.e(TAG, response.errorBody()?.string() ?: "Error")

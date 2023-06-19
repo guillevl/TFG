@@ -50,7 +50,7 @@ class DetalleEventoFragment : Fragment() {
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.isVisible = false
         activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationViewAdmin)?.isVisible =
             false
-
+        val mainActivity = activity as MainActivity
         val eventId =
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
                 arguments?.getString("eventId")
@@ -72,6 +72,7 @@ class DetalleEventoFragment : Fragment() {
                     applyShakeEffect()
                 } else {
                     updateRelacion(usuario.id.toString(), usuario)
+                    mainActivity.setBottomNavigationSelectedItem(2)
                     activity?.supportFragmentManager?.beginTransaction()
                         ?.replace(R.id.container, MisEventosFragment())?.commit()
                 }
@@ -103,8 +104,8 @@ class DetalleEventoFragment : Fragment() {
                         body.data.attributes.fecha_evento
                     view?.findViewById<TextView>(R.id.tvTituloEventoDetalleMainUsr)?.text =
                         body.data.attributes.titulo_evento
-                    val hora_inicio = body.data.attributes.hora_inicio.substring(0, 5)
-                    val hora_fin = body.data.attributes.hora_fin.substring(0, 5)
+                    val hora_inicio = body.data.attributes.hora_inicio
+                    val hora_fin = body.data.attributes.hora_fin
                     view?.findViewById<TextView>(R.id.tvHoraEventoDetalleMainUsr)?.text =
                         hora_inicio + " - " + hora_fin
                     view?.findViewById<TextView>(R.id.tvNivelEventoDetalleMainUsr)?.text =

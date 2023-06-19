@@ -112,15 +112,8 @@ class RegistroFragment : Fragment() {
                 // maneja la respuesta exitosa aquí
                 val body = response.body()
                 if (response.isSuccessful && body != null) {
-                    var registroResponse = response.body()
-                    print(registroResponse)
-                    val sharedPreferences =
-                        requireContext().getSharedPreferences("login", Context.MODE_PRIVATE)
-                    val editor = sharedPreferences.edit()
-                    editor.putInt("userID", response.body()!!.user.id)
-                    editor.apply()
                     activity?.supportFragmentManager?.beginTransaction()
-                        ?.replace(R.id.container, MainUsrFragment())?.commit()
+                        ?.replace(R.id.container, LoginFragment())?.commit()
                 } else {
                     val errorBody = response.errorBody()?.string()
                     val errorJson = JSONObject(errorBody)
